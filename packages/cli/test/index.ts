@@ -17,6 +17,6 @@ test("should return default config", (t) => {
 });
 
 test("should return default config", async (t) => {
-  const {stdout} = await execa(fixturePath, ["-u", "cat"]);
-  t.is(stdout, "u\nunicorn\nmeow\ncamelCaseOption");
+  const {stdout} = await execa(fixturePath, []);
+  t.is(stdout, "");
 });
