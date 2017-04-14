@@ -1,0 +1,9 @@
+{
+  "name": "@perfyjs/reporter-web",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "ava"
+  }
+}

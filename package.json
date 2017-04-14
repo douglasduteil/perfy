@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "lerna": "lerna",
+    "postinstall": "lerna bootstrap --hoist",
+    "serve:test": "run-p watch:test:unit watch:build:test",
+    "test": "lerna run test -- --silent",
+    "watch:build:test": "lerna run watch:build:test --silent --stream",
+    "watch:test:unit": "ava packages/*/test/out-tsc/test**/*.js -w"
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "lerna": "^2.0.0-rc.2",
+    "npm-run-all": "^4.0.2",
+    "ts-node": "^3.0.2",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2"
+  }
+}

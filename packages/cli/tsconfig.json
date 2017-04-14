@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "files": [
+    "typings/execa.d.ts",
+    "src/index.ts"
+  ]
+}

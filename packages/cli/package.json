@@ -1,0 +1,20 @@
+{
+  "name": "@perfyjs/cli",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:test": "tsc -p test/tsconfig.json",
+    "test": "run-s build:test test:unit",
+    "test:unit": "ava",
+    "watch:build:test": "npm run build:test -- -w",
+    "watch:test:unit": "npm run test:unit -- -w",
+    "serve:unit": "run-p watch:test:unit watch:build:test"
+  },
+  "devDependencies": {
+    "@types/meow": "^3.6.2",
+    "@types/node": "^7.0.12",
+    "execa": "^0.6.3",
+    "meow": "^3.7.0"
+  }
+}
