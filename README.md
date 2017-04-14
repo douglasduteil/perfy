@@ -14,3 +14,10 @@ The perfect companion tool for <a href="https://github.com/angular/angular/tree/
   <a href="https://travis-ci.org/perfy/perfy"><img alt="Travis Status" src="https://img.shields.io/travis/perfy/perfy/master.svg?label=travis&maxAge=43200"></a>
   <a href="https://www.npmjs.com/package/perfy-core"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/perfy-core.svg?maxAge=43200"></a>
 </p>
+
+
+## Utils
+
+```
+npm run lerna --silent -- exec "npm i -D @types/execa" --scope @perfyjs/cli --stream
+```
