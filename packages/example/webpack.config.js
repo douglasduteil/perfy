@@ -18,6 +18,8 @@ exports.default = {
     'long-execution-time': './src/cases/long-execution-time/index.ts'
   },
 
+  //
+
   module: {
     loaders: [
       {
