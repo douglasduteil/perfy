@@ -58,7 +58,7 @@ exports.config = {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
 
     return Promise.all([
-      launchServer()
+      launchServer().then(({ baseUrl }) => browser.baseUrl = baseUrl)
     ]);
   },
 

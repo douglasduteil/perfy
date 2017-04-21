@@ -1,6 +1,6 @@
 //
 
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from "protractor";
 
 describe("Long execution time", () => {
   it("10ms process every 10ms", async () => {

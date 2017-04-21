@@ -33,8 +33,9 @@ function launchServer({ defaultPort, config} = {}) {
         .then((server) => {
           const { address, port } = server.address();
           const host = address === '127.0.0.1' ? 'localhost' : address;
-          console.log(`\nProject is running at ${chalk.yellow(`http://${host}:${port}`)}`);
-          return { server };
+          const baseUrl = `http://${host}:${port}`;
+          console.log(`\nProject is running at ${chalk.yellow(baseUrl)}`);
+          return { baseUrl, server };
         })
     })
 }
