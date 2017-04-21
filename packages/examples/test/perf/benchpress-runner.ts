@@ -1,7 +1,10 @@
+//
+
+import { mkdir } from "fs";
 
 import {
   ConsoleReporter,
-  // JsonFileReporter,
+  JsonFileReporter,
   MultiReporter,
   Options,
   RegressionSlopeValidator,
@@ -9,6 +12,16 @@ import {
   SeleniumWebDriverAdapter,
   Validator,
 } from "@angular/benchpress";
+
+const reportsFolder = "./benchpress_reports";
+
+// HACK(@douglasduteil): create the folder if not existing
+// The "JsonFileReporter" won't create the report folder if it doesn't exist.
+mkdir(reportsFolder, () => {
+ // We ignore errors here...
+ // like EEXIST for example...
+ // Nope ! We don't care for now...
+});
 
 export const runner = new Runner([
   // use protractor as Webdriver client
@@ -25,12 +38,12 @@ export const runner = new Runner([
   { provide: Options.FORCE_GC, useValue: true },
 
   // Add Reporters : Console + Json
-  // JsonFileReporter.PROVIDERS,
+  JsonFileReporter.PROVIDERS,
 
   // Make sure this folder is already created and writable
-  // { provide: JsonFileReporter.PATH, useValue: "./perf_reports/data/" },
+  { provide: JsonFileReporter.PATH, useValue: reportsFolder },
   MultiReporter.provideWith([
     ConsoleReporter,
-    // JsonFileReporter,
+    JsonFileReporter,
   ]),
 ]);
