@@ -9,7 +9,10 @@ import { run } from "../src";
 
 //
 
-const fixturePath = resolve(__dirname, "../../fixture.js");
+const fixturePath = resolve(__dirname, "../../fake-bin.js");
+
+//
+
 test("should return default config", (t) => {
   const cli = run();
 

@@ -4,7 +4,27 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "ava"
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "build:es2015": "tsc --module es2015 --outDir dist/es2015",
+    "build": "run-p build:cjs build:es2015",
+    "build:test": "tsc -p test/tsconfig.json",
+    "test": "run-s build:test test:unit",
+    "test:unit": "ava --verbose",
+    "watch:build:test": "npm run build:test -- -w",
+    "watch:test:unit": "npm run test:unit -- -w",
+    "serve:unit": "run-p watch:test:unit watch:build:test"
+  },
+  "ava": {
+    "files": [
+      "test/out-tsc/test/**/*.js"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "jsdom": "^9.12.0",
+    "jsdom-global": "^2.1.1",
+    "npm-run-all": "^4.0.2",
+    "tslint": "^5.1.0",
+    "typescript": "^2.3.0"
   }
 }

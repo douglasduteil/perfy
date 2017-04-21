@@ -1,6 +1,11 @@
 {
+  "commands": {
+    "bootstrap": {
+      "hoist": "**"
+    }
+  },
   "ignore": ["legacy", "@perfyjs/perfy"],
-  "lerna": "2.0.0-rc.2",
+  "lerna": "2.0.0-rc.3",
   "packages": ["packages/*"],
   "version": "0.0.0"
 }

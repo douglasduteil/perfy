@@ -1,0 +1,29 @@
+{
+  "name": "@perfyjs/examples",
+  "version": "0.0.0",
+  "description": "Examples of project using perfy",
+  "scripts": {
+    "postinstall": "npm run webdriver-update",
+    "perf": "protractor test/perf/protractor.conf.js",
+    "start": "npm run serve",
+    "serve": "node server.js",
+    "test": "echo \"Skip: untested examples\" && exit 0",
+    "webdriver-update": "webdriver-manager update"
+  },
+  "devDependencies": {
+    "@angular/benchpress": "^0.1.0",
+    "@perfyjs/cli": "^0.0.0",
+    "@types/jasmine": "2.5.45",
+    "jasmine-core": "^2.5.2",
+    "jasmine-spec-reporter": "^3.2.0",
+    "portscanner": "^2.1.1",
+    "protractor": "^5.1.1",
+    "ts-node": "^3.0.2",
+    "tslint": "^5.1.0",
+    "typescript": "^2.3.0",
+    "awesome-typescript-loader": "^3.1.2",
+    "html-webpack-plugin": "^2.28.0",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
+  }
+}

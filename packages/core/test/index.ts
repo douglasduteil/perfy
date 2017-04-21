@@ -1,5 +1,11 @@
+//
+
 import { test } from "ava";
 
-test('should work', (t) => {
-  t.pass('yes')
-})
+import { foo } from "../src";
+
+//
+
+test("should work", (t) => {
+  t.is(foo(), "bar");
+});
