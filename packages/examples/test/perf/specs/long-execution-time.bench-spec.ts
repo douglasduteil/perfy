@@ -2,15 +2,36 @@
 
 import { browser, by, element } from "protractor";
 
-describe("Long execution time", () => {
-  it("10ms process every 10ms", async () => {
-      browser.ignoreSynchronization = true;
-      browser.get(`${browser.baseUrl}?duration=10&interval=10`);
+import { runner } from "../benchpress-runner";
 
-      // Force wait for DOMLoad
-      browser.wait(() => element(by.id("root")).isPresent(), 10000);
-  });
+const execute = () => {
+  "Nothing to execute here";
+};
+
+const testPars = [
+  // [ duration, interval ]
+  [10, 10],
+  [50, 10],
+];
+
+describe("Long execution time", () => {
+  testPars.forEach(benchProcess);
 });
+
+function benchProcess([duration, interval]: [number, number]): void {
+  it(`${duration}ms process every ${interval}ms`, () => {
+    browser.ignoreSynchronization = true;
+    browser.get(`${browser.baseUrl}?duration=${duration}&interval=${interval}`);
+
+    // Force wait for DOMLoad
+    browser.wait(() => element(by.id("root")).isPresent(), 10000);
+
+    return runner.sample({
+      id: ` long-execution-time-d${duration}-i${interval}`,
+      execute,
+    });
+  });
+}
 
 /*
 import benchpress from '@angular/benchpress';
@@ -31,20 +52,6 @@ const executionBlock = () => {
 describe("Long execution time", function() {
     afterEach(async(() => {
         await(browser.quit());
-    }));
-
-    it("10ms process every 10ms", async((done) => {
-        browser.ignoreSynchronization = true;
-        await(browser.get(`${TEST.ADDRESS}?duration=10&interval=10`));
-
-        // Force wait for DOMLoad
-        browser.wait(() => element(by.id("root")).isPresent(), 10000);
-
-        runner.sample({
-            id: "long-execution-time-d10-i10",
-            execute: async(executionBlock),
-        }).then(done, done.fail);
-
     }));
 
     it("50ms process every 10ms", async((done) => {

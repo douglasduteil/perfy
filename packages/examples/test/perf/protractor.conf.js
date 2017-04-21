@@ -57,14 +57,16 @@ exports.config = {
   onPrepare() {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
 
-    return Promise.all([
-      launchServer().then(({ baseUrl }) => browser.baseUrl = baseUrl)
-    ]);
-  },
+    beforeEach(() => {
+      // HACK(@douglasduteil): always reset the baseUrl on the browser.
+      // Because we activated the "restartBrowserBetweenTests" options,
+      // Protractor will popup a *virgin* browser for each test.
+      // So the baseUrl has to be setted before every tests.
+      browser.baseUrl = this.baseUrl
+    });
 
-  perfy: {
-    reportsFolder: './perf_reports',
-    reportsDataFolder: './perf_reports/data',
-    reportsFiles: './perf_reports/data/*_*.json'
+    return Promise.all([
+      launchServer().then(({ baseUrl }) => this.baseUrl = baseUrl)
+    ]);
   }
 };
