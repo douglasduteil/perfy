@@ -9,16 +9,18 @@
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "build:es2015": "tsc --module es2015 --outDir dist/es2015",
     "build:test": "tsc -p test/tsconfig.json",
-    "build": "run-p build:cjs build:es2015",
+    "build": "run-p -l \"build:cjs -- {@}\" \"build:es2015 -- {@}\" --",
     "prepublish": "npm run build",
     "serve:unit": "run-p watch:test:unit watch:build:test",
+    "serve": "npm run build -- -w",
     "test:unit": "ava --verbose",
     "test": "run-s build:test test:unit",
+    "watch:build": "npm run build -- -w",
     "watch:build:test": "npm run build:test -- -w",
     "watch:test:unit": "npm run test:unit -- -w"
   },
   "dependencies": {
-    "meow": "^3.7.0"
+    "yargs": "^7.1.0"
   },
   "ava": {
     "files": [
@@ -26,8 +28,8 @@
     ]
   },
   "devDependencies": {
-    "@types/meow": "^3.6.2",
     "@types/node": "^7.0.12",
+    "@types/yargs": "^6.6.0",
     "execa": "^0.6.3",
     "ava": "^0.19.1",
     "jsdom": "^9.12.0",

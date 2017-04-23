@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "description": "Examples of project using perfy",
   "scripts": {
+    "perf:serve": "perfy serve",
+    "perf:report": "perfy report",
+    "perf:run": "protractor test/perf/protractor.conf.js",
+    "perf": "npm-s perf:run perf:open",
     "postinstall": "npm run webdriver-update",
-    "perf": "protractor test/perf/protractor.conf.js",
-    "start": "npm run serve",
     "serve": "node server.js",
+    "start": "npm run serve",
     "test": "echo \"Skip: untested examples\" && exit 0",
     "webdriver-update": "webdriver-manager update"
+  },
+  "config": {
+    "perfy": "test/perf/perfy.conf.js"
   },
   "devDependencies": {
     "@angular/benchpress": "^0.1.0",

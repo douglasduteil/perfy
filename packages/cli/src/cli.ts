@@ -1,13 +1,13 @@
 //
 
-import * as meow from "meow";
+import * as yargs from "yargs";
 
-export function cli() {
-  return meow(`
-		Usage
-		 $ perfy [config]
+import {
+  ServeCommand,
+} from "./commands";
 
-    Example
-     $ perfy perf/perfy.config.js
-  `);
-}
+export const cli = yargs
+  .command(new ServeCommand())
+  .demandCommand(1)
+  .help()
+;

@@ -4,7 +4,9 @@
     "lerna": "lerna --",
     "postinstall": "lerna bootstrap",
     "serve:test": "run-p watch:test:unit watch:build:test",
+    "serve": "lerna run serve --silent --stream",
     "test": "lerna run test",
+    "watch:build:src": "lerna run watch:build:src --silent --stream",
     "watch:build:test": "lerna run watch:build:test --silent --stream",
     "watch:test:unit": "ava packages/*/test/out-tsc/test**/*.js -w"
   },
