@@ -14,7 +14,9 @@
     "webdriver-update": "webdriver-manager update"
   },
   "config": {
-    "perfy": "test/perf/perfy.conf.js"
+    "perfy": {
+      "config": "test/perf/perfy.conf.js"
+    }
   },
   "devDependencies": {
     "@angular/benchpress": "^0.1.0",
@@ -29,7 +31,7 @@
     "ts-node": "^3.0.2",
     "tslint": "^5.1.0",
     "typescript": "^2.3.0",
-    "webpack": "^2.3.3",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "webpack": "^2.3.3"
   }
 }

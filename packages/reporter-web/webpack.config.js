@@ -1,8 +1,8 @@
 //
 
+const { resolve } = require('path')
 
 const { CheckerPlugin } = require('awesome-typescript-loader')
-
 const { ProgressPlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -45,6 +45,7 @@ exports.default = {
   //
 
   output: {
+    path: resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   }
 }
