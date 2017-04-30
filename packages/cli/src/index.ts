@@ -71,13 +71,16 @@ function errorHandler(error: Error) {
   console.error(error);
 }
 
-function reportHandler(argv: {config: string}) {
+async function reportHandler(argv: {config: string}) {
   const config = resolveConfig(argv);
 
-  return updateJsonDataTableFromFiles(config.pattern, {
-    cwd: config.reportsFolder,
-  })
-    .catch(errorHandler);
+  try {
+    await updateJsonDataTableFromFiles(config.pattern, {
+      cwd: config.reportsFolder,
+    });
+  } catch (e) {
+    errorHandler(e);
+  }
 }
 
 function serveHandler(argv: {config: string}) {

@@ -9,6 +9,6 @@
     "outDir": "out-tsc",
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es5"
+    "target": "es2015"
   }
 }

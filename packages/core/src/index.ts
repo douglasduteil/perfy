@@ -12,30 +12,11 @@ import * as pify from "pify";
 
 //
 
-export interface IDBFile {
-  suites: {
-    [id: string]: {
-      [timestamp: string]: {
-        stats: {
-          [stateName: string]: {
-            average: number;
-            derivation: number;
-          },
-        },
-      },
-    },
-  };
-}
-
 const log = debug("@perfyjs/core");
 const globAsync = pify(glob);
 const readFileAsync = pify(readFile);
 
 //
-
-export function foo() {
-  return "bar";
-}
 
 export async function updateJsonDataTableFromFiles(
   pattern: string,
@@ -46,37 +27,34 @@ export async function updateJsonDataTableFromFiles(
   });
 
   const [reportFiles, db] = await Promise.all([
-    loadCurrentReports(pattern, options),
+    listReportFiles(pattern, options),
     loadDB("perfy_db.json"),
   ]);
 
-  log("reportFiles.length", reportFiles.length);
-  log("db", db.get("suites").value());
-  log("has long-execution-time-d10-i10", db.has("suites['long-execution-time-d10-i10']['1492906176969']").value());
-
-  const unrecoredReportFiles = reportFiles
-    .map((filename) => ({
-      filename: resolve(options.cwd, filename),
-      ...fileNameToIdTimestamp(filename),
-    }))
-    .filter(({id, timestamp}) =>
-      // in not already in the database
-      !db.has(`suites["${id}"]["${timestamp}"]`).value(),
-    );
+  const unrecoredReportFiles = diff(db, reportFiles);
 
   log("unrecoredReportFiles.length", unrecoredReportFiles.length);
 
   const inMemryDbUpdates = unrecoredReportFiles
+    .map((filename) => ({
+      filename: resolve(options.cwd, filename),
+      ...fileNameToIdTimestamp(filename),
+    }))
     .map(async ({id, timestamp, filename}) => {
       log(`read ${filename}`);
       const jsonContent = await readFileAsync(filename);
       const suiteIdPath = `suites["${id}"]`;
+
       if (!db.has(suiteIdPath).value()) {
         log("createing ", suiteIdPath);
+        // Force create the path as an Object
+        // Lodash#set is creating it as an array :(
         db.set(suiteIdPath, {}).value();
       }
+
       log(`set ${suiteIdPath}["${timestamp}"]`);
-      db.set(`${suiteIdPath}["${timestamp}"]`, JSON.parse(jsonContent))
+      return db
+        .set(`${suiteIdPath}["${timestamp}"]`, JSON.parse(jsonContent))
         .value();
     });
 
@@ -85,16 +63,33 @@ export async function updateJsonDataTableFromFiles(
   await db.write();
 
   log("written");
+
 }
 
-function loadCurrentReports(pattern: string, options?: {cwd: string}): Promise<string[]> {
+//
+
+export function diff(db: Lowdb, reportFileList: string[]) {
+  const NotInTheDatatable = (fileanem: string) => {
+    const filePath = fileNameToPath(fileanem);
+    return !db.has(filePath).value();
+  };
+
+  return reportFileList
+    .filter(NotInTheDatatable);
+}
+
+function listReportFiles(pattern: string, options?: {cwd: string}): Promise<string[]> {
   return globAsync(pattern, options);
-   // .then(structureFilePath);
 }
 
 function fileNameToIdTimestamp(filename: string) {
   const [, id = "", timestamp = ""] = filename.match(/(.*)_(.*).json/) || [];
   return {id, timestamp};
+}
+
+function fileNameToPath(filename: string) {
+  const {id, timestamp} = fileNameToIdTimestamp(filename);
+  return `suites['${id}']['${timestamp}']`;
 }
 
 function loadDB(fileName: string): Lowdb {
