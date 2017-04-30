@@ -1,0 +1,77 @@
+@import "app/variables";
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($perfy-app-theme);
+
+body {
+  margin: 0;
+
+  html.wf-roboto-n4-active.wf-active > & {
+    font-family:
+      ProximaNova,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+  }
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//== Global styles
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+/*
+@import 'app/_variables';
+@import 'app/helpers';
+
+
+//== Normalize
+//-----------------------------------------------------------------------------
+
+html {
+  @extend .h100;
+}
+
+html {
+  overflow-y: scroll;
+  font-family:
+    ProximaNova,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  font-size: 15px;
+  font-weight: normal;
+  background: #fff;
+  color: #666;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility
+}
+
+html.wf-roboto-n4-active.wf-active {
+  font-family:
+    ProximaNova,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+body {
+  @extend .h100;
+  margin: 0;
+}
+*/

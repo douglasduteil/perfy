@@ -1,0 +1,49 @@
+<section>
+
+  <md-nav-list
+   *ngFor="let suite of suites"
+  >
+
+    <md-list-item>
+      <h3>{{ suite.description.id }}</h3>
+    </md-list-item>
+
+    <md-list-item>
+      <button
+       md-raised-button
+       md-icon-button
+      >
+        <md-icon>trending_flat</md-icon>
+      </button>
+      <a md-line href="...">script execution time in ms, including gc and render</a>
+    </md-list-item>
+
+    <md-list-item>
+      <button
+       color="primary"
+       md-raised-button
+       md-icon-button
+      >
+        <md-icon>trending_up</md-icon>
+      </button>
+      <a md-line href="...">script execution time in ms, without gc nor render</a>
+    </md-list-item>
+
+    <md-list-item>
+      <button
+       color="warn"
+       md-raised-button
+       md-icon-button
+      >
+        <md-icon>trending_down</md-icon>
+      </button>
+      <a md-line href="...">render time</a>
+    </md-list-item>
+
+  </md-nav-list>
+
+
+  <perfy-metric>
+
+  </perfy-metric>
+</section>
