@@ -2,16 +2,15 @@
   "name": "@perfyjs/core",
   "version": "0.0.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "dist/cjs/index.js",
   "scripts": {
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "build:es2015": "tsc --module es2015 --outDir dist/es2015",
-    "build": "run-p build:cjs build:es2015",
+    "build": "tsc --module commonjs --outDir dist/cjs",
     "build:test": "tsc -p test/tsconfig.json",
     "test": "run-s build:test test:unit",
     "test:unit": "ava --verbose",
     "watch:build:test": "npm run build:test -- -w",
     "watch:test:unit": "npm run test:unit -- -w",
+    "serve": "npm run build -- -w",
     "serve:unit": "run-p watch:test:unit watch:build:test"
   },
   "ava": {
@@ -20,11 +19,23 @@
     ]
   },
   "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/glob": "^5.0.30",
+    "@types/lodash": "^4.14.63",
+    "@types/lowdb": "^0.15.0",
+    "@types/pify": "0.0.28",
     "ava": "^0.19.1",
-    "jsdom-global": "^2.1.1",
     "jsdom": "^9.12.0",
+    "jsdom-global": "^2.1.1",
     "npm-run-all": "^4.0.2",
     "tslint": "^5.1.0",
     "typescript": "^2.3.0"
+  },
+  "dependencies": {
+    "debug": "^2.6.6",
+    "glob": "^7.1.1",
+    "lodash": "^4.17.4",
+    "lowdb": "^0.16.2",
+    "pify": "^2.3.0"
   }
 }

@@ -20,7 +20,9 @@
     "watch:test:unit": "npm run test:unit -- -w"
   },
   "dependencies": {
-    "yargs": "^7.1.0"
+    "yargs": "^7.1.0",
+    "live-server": "^1.2.0",
+    "@perfyjs/reporter-web": "^0.0.0"
   },
   "ava": {
     "files": [
@@ -29,7 +31,6 @@
   },
   "devDependencies": {
     "@perfyjs/core": "^0.0.0",
-    "@perfyjs/reporter-web": "^0.0.0",
     "@types/node": "^7.0.12",
     "@types/yargs": "^6.6.0",
     "ava": "^0.19.1",

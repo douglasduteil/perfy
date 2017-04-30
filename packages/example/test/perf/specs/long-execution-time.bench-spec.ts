@@ -29,7 +29,7 @@ function benchProcess([duration, interval]: [number, number]): void {
     browser.wait(() => element(by.id("root")).isPresent(), 10000);
 
     return runner.sample({
-      id: ` long-execution-time-d${duration}-i${interval}`,
+      id: `long-execution-time?duration=${duration}&interval=${interval}`,
       execute,
     });
   });

@@ -1,7 +1,5 @@
 //
 
-import { mkdir } from "fs";
-
 import {
   ConsoleReporter,
   JsonFileReporter,
@@ -13,15 +11,7 @@ import {
   Validator,
 } from "@angular/benchpress";
 
-const reportsFolder = "./benchpress_reports";
-
-// HACK(@douglasduteil): create the folder if not existing
-// The "JsonFileReporter" won't create the report folder if it doesn't exist.
-mkdir(reportsFolder, () => {
- // We ignore errors here...
- // like EEXIST for example...
- // Nope ! We don't care for now...
-});
+import { config } from "./perfy.conf";
 
 export const runner = new Runner([
   // use protractor as Webdriver client
@@ -41,7 +31,7 @@ export const runner = new Runner([
   JsonFileReporter.PROVIDERS,
 
   // Make sure this folder is already created and writable
-  { provide: JsonFileReporter.PATH, useValue: reportsFolder },
+  { provide: JsonFileReporter.PATH, useValue: config.reportsFolder },
   MultiReporter.provideWith([
     ConsoleReporter,
     JsonFileReporter,
