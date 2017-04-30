@@ -3,3 +3,4 @@ benchpress_reports/
 dist/
 node_modules/
 out-tsc/
+perfy_db.json

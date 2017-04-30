@@ -1,10 +1,11 @@
 {
   "commands": {
     "bootstrap": {
-      "hoist": "**"
+      "hoist": "**",
+      "nohoist": ["@perfyjs/reporter-web"]
     }
   },
-  "ignore": ["legacy", "@perfyjs/perfy"],
+  "ignore": ["legacy", "@perfyjs/perfy", "@perfyjs/reporter-web-old"],
   "lerna": "2.0.0-rc.3",
   "packages": ["packages/*"],
   "version": "0.0.0"
