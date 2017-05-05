@@ -4,4 +4,4 @@ const root = resolve(__dirname, '..');
 const { main } = require(resolve(root, 'package.json'));
 const apiRoot = dirname(resolve(root, main));
 
-require(resolve(apiRoot, 'index.js')).default(process.argv.slice(1));
+require(resolve(apiRoot, 'index.js')).default();
