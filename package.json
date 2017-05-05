@@ -11,6 +11,6 @@
     "watch:test:unit": "ava packages/*/test/out-tsc/test**/*.js -w"
   },
   "devDependencies": {
-    "lerna": "^2.0.0-rc.2"
+    "lerna": "^2.0.0-rc.4"
   }
 }

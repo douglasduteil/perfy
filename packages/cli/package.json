@@ -1,15 +1,13 @@
 {
   "name": "@perfyjs/cli",
   "version": "0.0.0",
-  "main": "dist/cjs/index.js",
+  "main": "dist/index.js",
   "bin": {
     "perfy": "bin/perfy.js"
   },
   "scripts": {
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "build:es2015": "tsc --module es2015 --outDir dist/es2015",
     "build:test": "tsc -p test/tsconfig.json",
-    "build": "run-p -l \"build:cjs -- {@}\" \"build:es2015 -- {@}\" --",
+    "build": "tsc --module commonjs --outDir dist",
     "prepublish": "npm run build",
     "serve:unit": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
@@ -21,6 +19,7 @@
   },
   "dependencies": {
     "yargs": "^7.1.0",
+    "lodash": "^4.17.4",
     "live-server": "^1.2.0",
     "@perfyjs/reporter-web": "^0.0.0"
   },

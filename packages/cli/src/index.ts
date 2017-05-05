@@ -3,11 +3,12 @@
 import * as path from "path";
 
 import { updateJsonDataTableFromFiles } from "@perfyjs/core";
+import { defaults } from "lodash";
 import * as yargs from "yargs";
 
 interface ICliConfig {
   pattern?: string;
-  reportsFolder?: string;
+  reportsFolder: string;
 }
 
 export default (argv: typeof process.argv): void => {
@@ -46,25 +47,26 @@ export default (argv: typeof process.argv): void => {
   cli.parse(argv);
 };
 
-function resolveConfig(argv: {config: string, reportsFolder?: string}): ICliConfig {
-  const config = Object.assign({},
-    argv,
-    {
-      configFile: argv.config || process.env.npm_package_config_perfy_config,
-    },
-  );
+function resolveConfig(argv: {config: string, reportsFolder?: string}) {
+  const configFile: string = argv.config || process.env.npm_package_config_perfy_config;
+  const configDescendants: any[] = [argv];
+  const config: any = {};
 
-  Object.assign(config,
-    require(path.resolve(process.cwd(), config.configFile)).config,
-  );
+  if (configFile) {
+    configDescendants.unshift(
+      require(path.resolve(process.cwd(), configFile)).config,
+    );
+  }
 
-  Object.assign(config,
-   {
-     reportsFolder: path.resolve(process.cwd(), config.reportsFolder),
-   },
-  );
+  defaults(config, ...configDescendants);
 
-  return config;
+  configDescendants.push({
+    reportsFolder: path.resolve(process.cwd(), config.reportsFolder),
+  });
+
+  defaults(config, ...configDescendants);
+
+  return config as ICliConfig;
 }
 
 function errorHandler(error: Error) {

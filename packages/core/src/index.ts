@@ -6,7 +6,7 @@ import { resolve } from "path";
 import * as debug from "debug";
 import * as glob from "glob";
 // import { forEach, mapValues, omitBy } from "lodash";
-import { defaults } from "lodash";
+import { defaults, sortedIndex } from "lodash";
 import Lowdb = require("lowdb");
 import * as pify from "pify";
 
@@ -35,7 +35,22 @@ export async function updateJsonDataTableFromFiles(
 
   log("unrecoredReportFiles.length", unrecoredReportFiles.length);
 
-  const inMemryDbUpdates = unrecoredReportFiles
+  updateDatatable(db, unrecoredReportFiles, options);
+
+  log("written");
+
+}
+
+//
+
+export async function updateDatatable(
+  db: Lowdb,
+  newRecordsFiles: string[],
+  options: {cwd: string},
+  ) {
+    log("updateDatatable");
+
+    const inMemryDbUpdates = newRecordsFiles
     .map((filename) => ({
       filename: resolve(options.cwd, filename),
       ...fileNameToIdTimestamp(filename),
@@ -49,29 +64,27 @@ export async function updateJsonDataTableFromFiles(
         log("createing ", suiteIdPath);
         // Force create the path as an Object
         // Lodash#set is creating it as an array :(
-        db.set(suiteIdPath, {}).value();
+        db.set(suiteIdPath, []).value();
       }
-
       log(`set ${suiteIdPath}["${timestamp}"]`);
-      return db
-        .set(`${suiteIdPath}["${timestamp}"]`, JSON.parse(jsonContent))
+      const idRecords  = db.get(suiteIdPath).value();
+      const latestTimestamp = (data: {timestamp: number}) => data.timestamp;
+      const recordIndex = sortedIndex(idRecords as any[], latestTimestamp);
+      return (db as any)
+        .get(suiteIdPath)
+        .splice(recordIndex, 0, {timestamp, ...JSON.parse(jsonContent)})
         .value();
     });
 
-  await Promise.all(inMemryDbUpdates);
+    await Promise.all(inMemryDbUpdates);
 
-  await db.write();
-
-  log("written");
-
+    await db.write();
 }
 
-//
-
 export function diff(db: Lowdb, reportFileList: string[]) {
-  const NotInTheDatatable = (fileanem: string) => {
-    const filePath = fileNameToPath(fileanem);
-    return !db.has(filePath).value();
+  const NotInTheDatatable = (filename: string) => {
+    const {id, timestamp} = fileNameToIdTimestamp(filename);
+    return !(db as any).get(`suites["${id}"]`).some({ timestamp }).value();
   };
 
   return reportFileList
@@ -85,11 +98,6 @@ function listReportFiles(pattern: string, options?: {cwd: string}): Promise<stri
 function fileNameToIdTimestamp(filename: string) {
   const [, id = "", timestamp = ""] = filename.match(/(.*)_(.*).json/) || [];
   return {id, timestamp};
-}
-
-function fileNameToPath(filename: string) {
-  const {id, timestamp} = fileNameToIdTimestamp(filename);
-  return `suites['${id}']['${timestamp}']`;
 }
 
 function loadDB(fileName: string): Lowdb {

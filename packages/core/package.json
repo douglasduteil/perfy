@@ -2,9 +2,9 @@
   "name": "@perfyjs/core",
   "version": "0.0.0",
   "description": "",
-  "main": "dist/cjs/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --module commonjs --outDir dist/cjs",
+    "build": "tsc --module commonjs --outDir dist",
     "build:test": "tsc -p test/tsconfig.json",
     "test": "run-s build:test test:unit",
     "test:unit": "ava --verbose",
@@ -18,6 +18,13 @@
       "test/out-tsc/test/**/*.js"
     ]
   },
+  "dependencies": {
+    "debug": "^2.6.6",
+    "glob": "^7.1.1",
+    "lodash": "^4.17.4",
+    "lowdb": "^0.16.2",
+    "pify": "^2.3.0"
+  },
   "devDependencies": {
     "@types/debug": "0.0.29",
     "@types/glob": "^5.0.30",
@@ -30,12 +37,5 @@
     "npm-run-all": "^4.0.2",
     "tslint": "^5.1.0",
     "typescript": "^2.3.0"
-  },
-  "dependencies": {
-    "debug": "^2.6.6",
-    "glob": "^7.1.1",
-    "lodash": "^4.17.4",
-    "lowdb": "^0.16.2",
-    "pify": "^2.3.0"
   }
 }
