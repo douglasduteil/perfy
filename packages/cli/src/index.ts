@@ -1,18 +1,23 @@
 //
 
+import * as debug from "debug";
+import * as yargs from "yargs";
+/*
 import * as path from "path";
 
 import { updateJsonDataTableFromFiles } from "@perfyjs/core";
 import { defaults } from "lodash";
-import * as yargs from "yargs";
 
 interface ICliConfig {
-  pattern?: string;
+  pattern: string;
   reportsFolder: string;
-}
+}*/
 
-export default (argv: typeof process.argv): void => {
-  const cli = yargs
+const log = debug("perfy:cli");
+
+export default (): void => {
+  log("run");
+  return yargs
     .help("help")
     .alias("help", "h")
     //
@@ -29,25 +34,14 @@ export default (argv: typeof process.argv): void => {
       },
     })
     //
-    .command({
-      command: "serve",
-      describe: "Explore the result",
-      handler: serveHandler,
-    })
-    //
-    .command({
-      command: "report",
-      describe: "report the local perfy_db.json",
-      handler: reportHandler,
-    })
-    //
+    .commandDir("cmds")
     .demandCommand(1)
-    .strict();
-
-  cli.parse(argv);
+    .strict()
+    .argv;
 };
-
+/*
 function resolveConfig(argv: {config: string, reportsFolder?: string}) {
+  log("resolveConfig");
   const configFile: string = argv.config || process.env.npm_package_config_perfy_config;
   const configDescendants: any[] = [argv];
   const config: any = {};
@@ -74,6 +68,7 @@ function errorHandler(error: Error) {
 }
 
 async function reportHandler(argv: {config: string}) {
+  log("reportHandler");
   const config = resolveConfig(argv);
 
   try {
@@ -86,6 +81,7 @@ async function reportHandler(argv: {config: string}) {
 }
 
 function serveHandler(argv: {config: string}) {
+  log("serveHandler");
   const config = resolveConfig(argv);
   console.log(config);
 
@@ -101,3 +97,4 @@ function serveHandler(argv: {config: string}) {
     middleware: [],
   });
 }
+*/

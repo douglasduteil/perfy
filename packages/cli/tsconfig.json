@@ -1,13 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@perfyjs/core": ["../core/src/index"]
-    }
-  },
-  "files": [
-    "src/index.ts",
-    "typings/execa.d.ts"
+  "include": [
+    "src/**/*",
+    "typings/**/*"
+  ],
+  "exclude": [
+    "test/**/*"
   ]
 }

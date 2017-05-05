@@ -9,11 +9,10 @@
     "lint": "ng lint",
     "ng": "ng",
     "serve:dev": "ng serve --aot --hmr",
-    "serve": "run-p -l serve:dev watch:build",
+    "serve": "npm run watch:build",
     "start": "npm run serve",
     "test": "ng test",
-    "watch:build": "npm run build -- --watch",
-    "watch:build:prod": "npm run build -- --watch"
+    "watch:build": "npm run build -- --watch --no-progress"
   },
   "private": true,
   "dependencies": {
@@ -28,29 +27,29 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "core-js": "^2.4.1",
-    "normalize.css": "^6.0.0",
+    "normalize.css": "^7.0.0",
     "plotly.js": "^1.26.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.1",
+    "@angular/cli": "1.0.2",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.45",
     "@types/node": "^7.0.12",
-    "codelyzer": "~2.0.0",
+    "codelyzer": "~3.0.1",
     "jasmine-core": "^2.5.2",
-    "jasmine-spec-reporter": "^3.2.0",
-    "karma-chrome-launcher": "~2.0.0",
+    "jasmine-spec-reporter": "^4.1.0",
+    "karma-chrome-launcher": "~2.1.0",
     "karma-cli": "~1.0.1",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-jasmine": "~1.1.0",
-    "karma": "~1.4.1",
+    "karma": "~1.6.0",
     "npm-run-all": "^4.0.2",
     "protractor": "^5.1.1",
     "ts-node": "^3.0.2",
-    "tslint": "~4.5.0",
+    "tslint": "~5.2.0",
     "typescript": "^2.3.0"
   }
 }

@@ -10,6 +10,8 @@ import { defaults, sortedIndex } from "lodash";
 import Lowdb = require("lowdb");
 import * as pify from "pify";
 
+import { database } from "./database";
+
 //
 
 const log = debug("@perfyjs/core");
@@ -17,6 +19,8 @@ const globAsync = pify(glob);
 const readFileAsync = pify(readFile);
 
 //
+
+export { database };
 
 export async function updateJsonDataTableFromFiles(
   pattern: string,
@@ -28,7 +32,7 @@ export async function updateJsonDataTableFromFiles(
 
   const [reportFiles, db] = await Promise.all([
     listReportFiles(pattern, options),
-    loadDB("perfy_db.json"),
+    database("perfy_db.json"),
   ]);
 
   const unrecoredReportFiles = diff(db, reportFiles);
@@ -98,12 +102,4 @@ function listReportFiles(pattern: string, options?: {cwd: string}): Promise<stri
 function fileNameToIdTimestamp(filename: string) {
   const [, id = "", timestamp = ""] = filename.match(/(.*)_(.*).json/) || [];
   return {id, timestamp};
-}
-
-function loadDB(fileName: string): Lowdb {
-  return new Lowdb(fileName, {
-    storage: require("lowdb/lib/storages/file-async"),
-    writeOnChange: false,
-  })
-    .defaults({ suites: {} });
 }

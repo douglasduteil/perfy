@@ -33,7 +33,7 @@
     "@types/lowdb": "^0.15.0",
     "@types/pify": "0.0.28",
     "ava": "^0.19.1",
-    "jsdom": "^9.12.0",
+    "jsdom": "^10.1.0",
     "jsdom-global": "^2.1.1",
     "npm-run-all": "^4.0.2",
     "tslint": "^5.1.0",
