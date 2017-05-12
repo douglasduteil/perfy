@@ -55,36 +55,40 @@ export class MetricComponent implements AfterViewInit, OnChanges {
 
 function newMetricPlot(elm: HTMLElement) {
   return (series) => {
+    const data = [
+      {
+        type: 'scatter',
+        mode: 'lines',
+        showticklabels: false,
+        y: series.map(({y}) => y),
+        line: {
+          width: 1,
+        },
+        error_y: {
+          array: series.map(({error_y}) => error_y),
+          thickness: 0.5,
+          width: 0,
+        },
+      },
+    ];
+
+    const layout = {
+      yaxis: {
+        title: 'Script time',
+      },
+      xaxis: {
+        showgrid: false,
+        tickformat: '%B %d, %Y',
+        ticktext: series.map(({ticktext}) => new Date(+ticktext)),
+        tickvals: series.map((_, i) => i),
+      },
+      margin: { l: 40, b: 20, r: 10, t: 20 },
+    };
+
     window.Plotly.newPlot(
       elm,
-      [
-        {
-          type: 'scatter',
-          mode: 'lines',
-          showticklabels: false,
-          y: series.map(({y}) => y),
-          line: {
-            width: 1,
-          },
-          error_y: {
-            array: series.map(({error_y}) => error_y),
-            thickness: 0.5,
-            width: 0,
-          },
-        },
-      ],
-      {
-        yaxis: {
-          title: 'Script time',
-        },
-        xaxis: {
-          showgrid: false,
-          tickformat: '%B %d, %Y',
-          ticktext: series.map(({ticktext}) => new Date(+ticktext)),
-          tickvals: series.map((_, i) => i),
-        },
-        margin: { l: 40, b: 20, r: 10, t: 20 },
-      },
+      data,
+      layout,
       { showLink: false },
     );
 

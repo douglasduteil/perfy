@@ -1,9 +1,10 @@
 //
 
-import * as debug from "debug";
-// import * as yargs from "yargs";
+import { resolve } from "path";
 
-import {} from "../config";
+import * as debug from "debug";
+
+import { database, update } from "@perfyjs/core";
 
 //
 
@@ -17,4 +18,16 @@ export const desc = "report the local perfy_db.json";
 
 export function handler(argv: any) {
   log(argv);
+
+  const perfyDatabase = database(resolve(process.cwd(), "perfy_db.json"));
+
+  const reportsFolder = "./benchpress_reports";
+
+  update({
+    database: perfyDatabase,
+    cwd: process.cwd(),
+    reportsFolder,
+    pattern: '*.json'
+  })
+  .catch(console.error);
 }

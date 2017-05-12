@@ -2,16 +2,6 @@
 
 import * as debug from "debug";
 import * as yargs from "yargs";
-/*
-import * as path from "path";
-
-import { updateJsonDataTableFromFiles } from "@perfyjs/core";
-import { defaults } from "lodash";
-
-interface ICliConfig {
-  pattern: string;
-  reportsFolder: string;
-}*/
 
 const log = debug("perfy:cli");
 

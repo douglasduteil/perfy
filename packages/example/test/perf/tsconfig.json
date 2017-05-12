@@ -1,12 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
     "outDir": "../out-tsc/perf",
+    "strictNullChecks":false,
     "module": "commonjs",
     "target": "es5",
     "types":[
       "jasmine",
       "node"
     ]
-  }
+  },
+  "files": [
+    "./specs/long-execution-time.bench-spec.ts"
+  ]
 }

@@ -1,6 +1,6 @@
 //
 
-import {dirname, resolve} from "path";
+import { dirname, resolve } from "path";
 
 import * as debug from "debug";
 
@@ -32,32 +32,4 @@ export function handler(argv: any) {
     database: perfyDatabase,
     root,
   });
-  /*
-  return
-  const middleware = [
-    proxyApiRoute("/api", databaseFile),
-    history(),
-  ];
-
-  liveServer.start({
-    logLevel: 2,
-    open: true,
-    middleware,
-    root: resolve(reporterWeb, "dist"),
-    watch: databaseFile,
-  });*/
 }
-/*
-function proxyApiRoute(
-  req: IncomingMessage,
-  res: ServerResponse,
-  next: (err?: Error) => void,
-) {
-  if (req.method !== "GET" && req.method !== "HEAD") {
-    return next();
-  }
-
-  res.setHeader("Content-Type", "application/json");
-  res.send(JSON.stringify({ a: 1 }));
-}
-*/
