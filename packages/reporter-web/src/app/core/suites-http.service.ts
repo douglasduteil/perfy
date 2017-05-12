@@ -8,13 +8,13 @@ export class SuitesHttpService {
   constructor(private http: Http) {}
 
   getSuites(): Promise<any[]> {
-    return this.http.get('/api/suites')
+    return this.http.get('/api/suites.json')
       .toPromise()
       .then((body) => body.json())
   }
 
   getSuite(id: string): Promise<any> {
-    return this.http.get(`/api/suites/${id}`)
+    return this.http.get(`/api/suites/${id}.json`)
       .toPromise()
       .then((body) => body.json())
   }
