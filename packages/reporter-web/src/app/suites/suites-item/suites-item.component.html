@@ -8,14 +8,17 @@
 
 <section *ngIf="!pending && suite">
 
-  <h1>{{ description.id }}</h1>
+  <h1>{{ suite.name }}</h1>
 
   <md-nav-list
    *ngFor="let metric of metrics; let i = index"
   >
     <md-list-item (click)="displayedItem = i">>
       <h3 md-line>{{ metric.name }} </h3>
-      <p md-line>
+      <p
+       *ngIf="suiteStateDiff"
+       md-line
+      >
         <span [innerHtml]="suiteStateDiff[metric.name].velocity"></span>
         <span>{{ suiteStateDiff[metric.name].value }}</span>
       </p>
@@ -24,11 +27,10 @@
     <div
      *ngIf="displayedItem === i"
     >
-
       <p>{{ metric.description }}</p>
 
       <perfy-metric
-      [series]="suiteSeries[metric.name]">
+      [metricOptions]="metricOptions[metric.name]">
       </perfy-metric>
     </div>
   </md-nav-list>

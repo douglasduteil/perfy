@@ -143,6 +143,6 @@ export function diff(db: Lowdb, reportFileList: string[]) {
 }
 
 function fileNameToIdTimestamp(filename: string) {
-  const [, id = "", params = "", timestamp = ""] = filename.match(/([^?]+)[?]?([^_]+)_(.*).json/) || [];
+  const [, id = "", params = "", timestamp = ""] = filename.match(/([^?]+)[?]?([^_]+)?_(.*).json/) || [];
   return {id, params, timestamp};
 }

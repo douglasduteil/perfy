@@ -13,7 +13,7 @@ export class MetricComponent implements AfterViewInit, OnChanges {
   plotlyPlotRefElm: ElementRef;
 
   @Input()
-  series: any;
+  metricOptions: any;
 
   constructor() { }
 
@@ -21,12 +21,12 @@ export class MetricComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
-    console.log('> this.series', this.series)
+    console.log('> this.series', this.metricOptions)
 
     const plotlyPlotElm: HTMLDivElement = this.plotlyPlotRefElm.nativeElement;
     this.updateMetricPlot = newMetricPlot(plotlyPlotElm);
 
-    this.onSeriesChange(this.series);
+    this.onSeriesChange(this.metricOptions);
   }
 
   ngOnChanges(changeObject: any) {
@@ -54,35 +54,40 @@ export class MetricComponent implements AfterViewInit, OnChanges {
 }
 
 function newMetricPlot(elm: HTMLElement) {
-  return (series) => {
-    const data = [
-      {
-        type: 'scatter',
-        mode: 'lines',
-        showticklabels: false,
-        y: series.map(({y}) => y),
-        line: {
-          width: 1,
-        },
-        error_y: {
-          array: series.map(({error_y}) => error_y),
-          thickness: 0.5,
-          width: 0,
-        },
+  return (options) => {
+
+    const defaultDataOptions =  {
+      type: 'scatter',
+      mode: 'lines',
+      showticklabels: false,
+      y: [],
+      line: {
+        width: 1,
       },
-    ];
+      error_y: {
+        array: [],
+        thickness: 0.5,
+        width: 0,
+      },
+      name: 'default'
+    };
+
+    const data = Object.entries(options.traces)
+      .map(([name, serie]) => {
+        const traceData = {...defaultDataOptions};
+        traceData.name = name;
+        traceData.y = serie.map(({y}) => y);
+        traceData.error_y.array = serie.map(({error_y}) => error_y);
+        return traceData;
+      });
 
     const layout = {
-      yaxis: {
-        title: 'Script time',
-      },
       xaxis: {
         showgrid: false,
-        tickformat: '%B %d, %Y',
-        ticktext: series.map(({ticktext}) => new Date(+ticktext)),
-        tickvals: series.map((_, i) => i),
+        ticktext: options.x,
+        tickvals: options.x.map((_, i) => i),
       },
-      margin: { l: 40, b: 20, r: 10, t: 20 },
+      margin: { l: 40, b: 25, r: 10, t: 20 },
     };
 
     window.Plotly.newPlot(
