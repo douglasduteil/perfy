@@ -13,6 +13,8 @@
     ]
   },
   "files": [
-    "./specs/long-execution-time.bench-spec.ts"
+    "./benchpress-runner.ts",
+    "./specs/long-execution-time.bench-spec.ts",
+    "./specs/random-long-script.bench-spec.ts"
   ]
 }
