@@ -3,10 +3,10 @@ import { MetricComponent } from './metric.component';
 
 @NgModule({
   declarations: [
-    MetricComponent
+    MetricComponent,
   ],
   exports: [
-    MetricComponent
-  ]
+    MetricComponent,
+  ],
 })
 export class MetricModule { }

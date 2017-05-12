@@ -13,7 +13,6 @@ export async function start(options: any): Promise<Server> {
   const {
     root,
     database,
-   // databaseFile,
   } = options;
 
   log("start %j", root);

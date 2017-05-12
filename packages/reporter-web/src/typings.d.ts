@@ -5,9 +5,9 @@ interface NodeModule {
 }
 
 interface Window {
-  requestIdleCallback(callback: () => void): number
+  requestIdleCallback(callback: () => void): number;
 }
 
 interface Window {
-  Plotly: any
+  Plotly: any;
 }

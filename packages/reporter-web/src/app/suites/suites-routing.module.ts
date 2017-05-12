@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { SuitesListComponent } from "./suites-list/suites-list.component";
-import { SuitesItemComponent } from "./suites-item/suites-item.component";
+import { SuitesItemComponent } from './suites-item/suites-item.component';
+import { SuitesListComponent } from './suites-list/suites-list.component';
 
 const routes: Routes = [
   {
     component: SuitesListComponent,
-    path: ''
+    path: '',
   },
   {
     component: SuitesItemComponent,
-    path: ':id'
-  }
+    path: ':id',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class SuitesRoutingModule { }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "lib": ["dom", "es2015"],
+    "lib": ["dom", "es2015", "es2016"],
     "module": "commonjs",
     "noUnusedLocals": true,
     "noUnusedParameters": true,

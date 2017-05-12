@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "lerna": "^2.0.0-rc.4"
+  },
+  "dependencies": {
+    "lerna": "file:../lerna"
   }
 }

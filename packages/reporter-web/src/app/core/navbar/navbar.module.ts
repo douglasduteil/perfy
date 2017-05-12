@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MdButtonModule, MdToolbarModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 import { NavbarComponent } from './navbar.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    RouterModule,
   ],
   imports: [
     MdButtonModule,
-    MdToolbarModule
-  ]
+    MdToolbarModule,
+    RouterModule,
+  ],
 })
 export class NavbarModule { }

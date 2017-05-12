@@ -1,64 +1,92 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'perfy-metric',
+  styleUrls: ['./metric.component.scss'],
   templateUrl: './metric.component.html',
-  styleUrls: ['./metric.component.scss']
 })
-export class MetricComponent implements OnInit, AfterViewInit {
+export class MetricComponent implements AfterViewInit, OnChanges {
+  updateMetricPlot: (data: any) => void;
 
   @ViewChild('plotlyPlot')
-  plotlyPlotRefElm: ElementRef
+  plotlyPlotRefElm: ElementRef;
+
+  @Input()
+  series: any;
 
   constructor() { }
 
-  ngOnInit() {
-    console.log('init')
-
-
-  }
+  //
 
   ngAfterViewInit() {
+    console.log('ngAfterViewInit');
+    console.log('> this.series', this.series)
+
     const plotlyPlotElm: HTMLDivElement = this.plotlyPlotRefElm.nativeElement;
-    const updateMetricPlot = newMetricPlot(plotlyPlotElm)
-    const metricComponentPlotlyRenderFrame = () => {
-      updateMetricPlot([1,4,5])
-    }
-    const metricComponentAskForPlotlyRenderFrame = () => {
-      // Scheduling the next render function after the last idle "frame"
-      window.requestAnimationFrame(metricComponentPlotlyRenderFrame)
-    }
-    window.requestIdleCallback(metricComponentAskForPlotlyRenderFrame)
+    this.updateMetricPlot = newMetricPlot(plotlyPlotElm);
+
+    this.onSeriesChange(this.series);
   }
 
+  ngOnChanges(changeObject: any) {
+    if (changeObject.series) {
+      this.onSeriesChange(changeObject.series.currentValue);
+    }
+  }
+
+  //
+
+  onSeriesChange(newValue?: any) {
+    if (!newValue) {
+      return;
+    }
+
+    const metricComponentPlotlyRenderFrame = () => {
+      this.updateMetricPlot(newValue);
+    };
+    const metricComponentAskForPlotlyRenderFrame = () => {
+      // Scheduling the next render function after the last idle "frame"
+      window.requestAnimationFrame(metricComponentPlotlyRenderFrame);
+    };
+    window.requestIdleCallback(metricComponentAskForPlotlyRenderFrame);
+  }
 }
 
-function newMetricPlot (elm: HTMLElement) {
-  return (data) => {
+function newMetricPlot(elm: HTMLElement) {
+  return (series) => {
     window.Plotly.newPlot(
       elm,
       [
         {
           type: 'scatter',
           mode: 'lines',
-          y: data,
+          showticklabels: false,
+          y: series.map(({y}) => y),
           line: {
-            width: 1
+            width: 1,
           },
           error_y: {
-            array: [],
+            array: series.map(({error_y}) => error_y),
             thickness: 0.5,
-            width: 0
-          }
-        }
+            width: 0,
+          },
+        },
       ],
       {
-        yaxis: { title: "Script time" },
-        xaxis: { showgrid: false },
-        margin: { l: 40, b: 10, r: 10, t: 20 }
+        yaxis: {
+          title: 'Script time',
+        },
+        xaxis: {
+          showgrid: false,
+          tickformat: '%B %d, %Y',
+          ticktext: series.map(({ticktext}) => new Date(+ticktext)),
+          tickvals: series.map((_, i) => i),
+        },
+        margin: { l: 40, b: 20, r: 10, t: 20 },
       },
-      { showLink: false }
+      { showLink: false },
     );
 
-  }
+  };
 }

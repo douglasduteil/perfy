@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     redirectTo: 'suites',
-    pathMatch: 'full'
   },
   {
-    path: 'suites',
+    data: {feedType: 'suites'},
     loadChildren: 'app/suites/suites.module#SuitesModule',
-    data: {feedType: 'suites'}
-  }
+    path: 'suites',
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

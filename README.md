@@ -20,4 +20,8 @@ The perfect companion tool for <a href="https://github.com/angular/angular/tree/
 
 ```
 npm run lerna --silent -- exec "npm i -D @types/execa" --scope @perfyjs/cli --stream
+
+
+lerna run --scope "@perfyjs/+(cli|core|reporter)" serve --stream --parallel
+
 ```

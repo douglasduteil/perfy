@@ -1,21 +1,94 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+
+import { SuitesHttpService } from 'app/core';
 
 @Component({
   selector: 'perfy-suites-item',
   templateUrl: './suites-item.component.html',
-  styleUrls: ['./suites-item.component.scss']
+  styleUrls: ['./suites-item.component.scss'],
 })
-export class SuitesItemComponent implements OnInit {
+export class SuitesItemComponent implements OnInit, OnDestroy {
+  pending: boolean;
+  routeParams: Subscription;
+  suite: any;
+  description: any;
+  displayedItem: number;
+  suiteStateDiff: any;
+  metrics: any[];
+  suiteSeries: any;
 
   constructor(
-    private route: ActivatedRoute
+    private suitesHttp: SuitesHttpService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-    })
+    this.routeParams = this.route.params
+      .map((params) => params['id'])
+      .subscribe((suiteId) => {
+        this.pending = true;
+
+        this.suitesHttp.getSuite(suiteId)
+          .then((suite) => {
+            console.log()
+            this.suite = suite;
+            const latestSuite = suite[0];
+            const previousSuite = suite[1];
+
+            this.description = latestSuite.description;
+            this.metrics = Object.entries(this.description.metrics)
+              .map(([name, description]) => ({name, description}));
+
+
+            this.suiteStateDiff = this.metrics.reduce((memo, metric) => {
+              const latestValue = parseFloat(latestSuite.stats[metric.name]);
+              const previousValue = parseFloat(previousSuite.stats[metric.name]);
+              const diff = latestValue - previousValue;
+              // TODO: consider ~0.1 difference as unchanged
+              const velocity = diff > 0 ? '&#8599;' : diff < 0 ? '&#8600' : '&#8605';
+
+              memo[metric.name] = {
+                value: latestValue,
+                velocity
+              };
+
+              return memo;
+            }, {});
+
+
+            console.log(suite);
+
+            this.suiteSeries = this.suite.reduce((memo, iteration) => {
+              const { stats } = iteration;
+
+              Object.entries(stats).forEach(([name, value]) => {
+                memo[name] = memo[name] || [];
+
+                const varianceSeparator = '+-';
+                const variancePercent = parseFloat(value.slice(
+                  value.indexOf(varianceSeparator) + varianceSeparator.length)
+                );
+                const ticktext = iteration.timestamp;
+                const y = parseFloat(value);
+                const error_y = y * (variancePercent / 100);
+                memo[name].push({ ticktext, y, error_y });
+              });
+
+              return memo;
+            }, {});
+
+            console.log('suiteSeries', this.suiteSeries)
+          })
+          .catch(() => {
+            // might want to add a message here...
+          })
+          .then(() => { this.pending = false });
+      });
   }
 
-
+  ngOnDestroy() {
+    this.routeParams.unsubscribe();
+  }
 }

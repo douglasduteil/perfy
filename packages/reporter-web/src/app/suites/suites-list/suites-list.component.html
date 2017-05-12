@@ -1,6 +1,24 @@
 <section>
 
   <md-nav-list
+   *ngFor="let suiteId of suiteIds"
+  >
+    <md-list-item>
+      <a md-line [routerLink]="[suiteId]">
+        <h3>{{ suiteId }}</h3>
+      </a>
+    </md-list-item>
+  </md-nav-list>
+
+  <hr>
+
+  <hr>
+
+  <hr>
+
+  <hr>
+
+  <md-nav-list
    *ngFor="let suite of suites"
   >
 
@@ -42,8 +60,4 @@
 
   </md-nav-list>
 
-
-  <perfy-metric>
-
-  </perfy-metric>
 </section>
