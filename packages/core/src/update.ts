@@ -10,6 +10,8 @@ import * as pify from "pify";
 import * as t from "tcomb";
 
 import Lowdb = require("lowdb");
+import sentenceCase = require("sentence-case");
+import paramCase = require("param-case");
 
 //
 
@@ -69,26 +71,47 @@ export async function updateDatatable(
       ...fileNameToIdTimestamp(filename),
       filename: resolve(options.cwd, filename),
     }))
-    .map(async ({id, timestamp, filename}) => {
+    .map(async ({id, params, timestamp, filename}) => {
       log(`read ${filename}`);
       log(`> id : ${id}`);
       log(`> timestamp : ${timestamp}`);
 
       const jsonContent = await readFileAsync(filename);
       const suiteIdPath = `suites["${id}"]`;
+      const casesPath = `${suiteIdPath}.cases`;
+      const paramsStr = paramCase(params);
 
       if (!db.has(suiteIdPath).value()) {
-        log("createing ", suiteIdPath);
+        log("creating ", suiteIdPath);
         // Force create the path as an Object
         // Lodash#set is creating it as an array :(
-        db.set(suiteIdPath, []).value();
+        db.set(suiteIdPath, {
+          cases: [],
+          name: sentenceCase(suiteIdPath),
+        }).value();
       }
-      log(`set ${suiteIdPath}["${timestamp}"]`);
-      const idRecords  = db.get(suiteIdPath).value();
+
+      let iterations = db.get(casesPath).find({id: paramsStr}).value();
+
+      if (!iterations) {
+        log("creating ", `${casesPath}["${paramsStr}"]`);
+
+        db.get(casesPath)
+          .push({
+            id: paramsStr,
+            iterations: [],
+          }).value();
+      }
+
+      log(`set ${casesPath}["${paramsStr}"].iterations["${timestamp}"]`);
+      iterations = db.get(casesPath).find({id: paramsStr}).value();
+
       const latestTimestamp = (data: {timestamp: number}) => data.timestamp;
-      const recordIndex = sortedIndex(idRecords as any[], latestTimestamp);
+      const recordIndex = sortedIndex(iterations as any[], latestTimestamp);
       return (db as any)
-        .get(suiteIdPath)
+        .get(casesPath)
+        .find({id: paramsStr})
+        .get('iterations')
         .splice(recordIndex, 0, {timestamp, ...JSON.parse(jsonContent)})
         .value();
     });
@@ -106,8 +129,13 @@ function listReportFiles(pattern: string, options?: {cwd: string}): Promise<stri
 export function diff(db: Lowdb, reportFileList: string[]) {
   log('diff')
   const NotInTheDatatable = (filename: string) => {
-    const {id, timestamp} = fileNameToIdTimestamp(filename);
-    return !(db as any).get(`suites["${id}"]`).some({ timestamp }).value();
+    const {id, params, timestamp} = fileNameToIdTimestamp(filename);
+    const paramsStr = paramCase(params);
+    return !(db as any)
+      .get(`suites["${id}"].cases`)
+      .find({id: paramsStr})
+      .get('iterations')
+      .some({ timestamp }).value();
   };
 
   return reportFileList
@@ -115,6 +143,6 @@ export function diff(db: Lowdb, reportFileList: string[]) {
 }
 
 function fileNameToIdTimestamp(filename: string) {
-  const [, id = "", timestamp = ""] = filename.match(/(.*)_(.*).json/) || [];
-  return {id, timestamp};
+  const [, id = "", params = "", timestamp = ""] = filename.match(/([^?]+)[?]?([^_]+)_(.*).json/) || [];
+  return {id, params, timestamp};
 }
