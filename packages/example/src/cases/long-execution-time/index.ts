@@ -15,7 +15,11 @@ document.addEventListener("DOMContentLoaded", function launchLongExecution() {
 
 function longExecutionTime(execFn: () => void, interval: number) {
   const loopingFn = () => longExecutionTime(execFn, interval);
+
+  // first exection
   execFn();
+
+  // next execution
   setTimeout(loopingFn, interval);
 }
 
