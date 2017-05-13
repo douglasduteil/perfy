@@ -1,3 +1,26 @@
-<perfy-navbar></perfy-navbar>
+<md-sidenav-container fullscreen>
+    <md-sidenav #start>
+        <md-nav-list>
+            <a md-list-item routerLink="/dashboard">Dashboard</a>
+            <a md-list-item routerLink="/heroes">Heroes</a>
+        </md-nav-list>
+        <hr>
+        <button md-button (click)="start.close()">CLOSE</button>
+    </md-sidenav>
+    <md-toolbar color="primary">
+        <button md-icon-button (click)="start.open()">
+            <md-icon>menu</md-icon>
+        </button>
 
-<router-outlet></router-outlet>
+        <a
+         md-button
+         routerLink="/suites"
+         aria-label="Perfy"
+        >
+          <span>Perfy</span>
+        </a>
+    </md-toolbar>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+</md-sidenav-container>
