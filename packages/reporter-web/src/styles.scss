@@ -1,9 +1,7 @@
 @import "app/variables";
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($perfy-app-theme);
+//== Normalize
+//-----------------------------------------------------------------------------
 
 body {
   margin: 0;
@@ -20,6 +18,17 @@ body {
       sans-serif;
   }
 }
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($perfy-app-theme);
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
