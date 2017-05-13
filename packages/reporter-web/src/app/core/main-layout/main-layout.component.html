@@ -1,0 +1,24 @@
+
+<md-toolbar color="primary">
+  <button md-icon-button (click)="sidenav.open()">
+    <md-icon>menu</md-icon>
+  </button>
+
+  <a md-button routerLink="/suites" aria-label="Perfy">
+    <span>Perfy</span>
+  </a>
+</md-toolbar>
+
+<md-sidenav-container fullscreen>
+  <md-sidenav [mode]="menuMode" #sidenav>
+    <md-nav-list>
+      <a md-list-item routerLink="/dashboard">Dashboard</a>
+      <a md-list-item routerLink="/heroes">Heroes</a>
+    </md-nav-list>
+    <hr>
+    <button md-button (click)="sidenav.close()">CLOSE</button>
+  </md-sidenav>
+  <div class="main-content">
+    <ng-content></ng-content>
+  </div>
+</md-sidenav-container>
