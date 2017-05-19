@@ -1,12 +1,12 @@
 
-document.addEventListener("DOMContentLoaded", function launchLongExecution() {
+document.addEventListener('DOMContentLoaded', function launchLongExecution() {
   const route = new URL(location.href);
   const searchParams: URLSearchParams = (route as any).searchParams;
 
-  const duration = parseInt(searchParams.get("duration") || "", 10) || 1000;
-  const interval = parseInt(searchParams.get("interval") || "", 10) || 1000;
+  const duration = parseInt(searchParams.get('duration') || '', 10) || 1000;
+  const interval = parseInt(searchParams.get('interval') || '', 10) || 1000;
 
-  const waitFn = wait.bind(null, document.querySelector("#root"), duration);
+  const waitFn = wait.bind(null, document.querySelector('#root'), duration);
 
   longExecutionTime(waitFn, interval);
 });
@@ -30,5 +30,5 @@ function wait(rootEl: HTMLElement, duration: number) {
     // just wait...
   }
 
-  rootEl.innerText += ".";
+  rootEl.innerText += '.';
 }
