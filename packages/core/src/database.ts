@@ -1,21 +1,27 @@
 //
 
-import * as debug from "debug";
+import * as debug from 'debug';
 
-import Lowdb = require("lowdb");
+import Lowdb = require('lowdb');
 
-//
-
-const log = debug("perfy:core:database");
+import { IDatabase } from './typings';
 
 //
 
-export function database(fileName: string): Lowdb {
+const log = debug('perfy:core:database');
+const defaultLowdbOptions: Lowdb.Options = {
+  storage: require('lowdb/lib/storages/file-async.js'),
+  writeOnChange: false
+};
+
+//
+
+export function database(
+  fileName: string,
+  lowdbOptions = defaultLowdbOptions
+)  {
   log(database, fileName);
 
-  return new Lowdb(fileName, {
-    storage: require("lowdb/lib/storages/file-async"),
-    writeOnChange: false,
-  })
-    .defaults({ suites: {} });
+  return new Lowdb(fileName, lowdbOptions)
+    .defaults<IDatabase>({ suites: {} });
 }

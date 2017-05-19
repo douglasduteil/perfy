@@ -5,14 +5,18 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --module commonjs --outDir dist",
     "build:test": "tsc -p test/tsconfig.json",
-    "test": "run-s build:test test:unit",
-    "test:unit": "ava --verbose",
-    "watch:build:test": "npm run build:test -- -w",
-    "watch:test:unit": "npm run test:unit -- -w",
+    "build": "tsc --module commonjs --outDir dist",
+    "lint": "run-p lint:*",
+    "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
+    "lint:test": "tslint \"test/unit/**/*.ts\" --type-check -p test/tsconfig.json",
+    "prebuild:test": "del test/out-tsc",
+    "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
-    "serve:unit": "run-p watch:test:unit watch:build:test"
+    "test:unit": "ava --verbose",
+    "test": "run-s lint build:test test:unit",
+    "watch:build:test": "npm run build:test -- -w",
+    "watch:test:unit": "npm run test:unit -- -w"
   },
   "ava": {
     "files": [
@@ -36,6 +40,7 @@
     "@types/lowdb": "^0.15.0",
     "@types/pify": "0.0.28",
     "ava": "^0.19.1",
+    "del-cli": "^1.0.0",
     "jsdom": "^10.1.0",
     "jsdom-global": "^2.1.1",
     "npm-run-all": "^4.0.2",
