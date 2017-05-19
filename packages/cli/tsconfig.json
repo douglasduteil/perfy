@@ -1,10 +1,11 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  },
   "include": [
-    "src/**/*",
-    "typings/**/*"
-  ],
-  "exclude": [
-    "test/**/*"
+    "src"
   ]
 }

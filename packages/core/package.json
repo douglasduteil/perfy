@@ -7,10 +7,11 @@
   "scripts": {
     "build:test": "tsc -p test/tsconfig.json",
     "build": "tsc --module commonjs --outDir dist",
-    "lint": "run-p lint:*",
     "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
     "lint:test": "tslint \"test/unit/**/*.ts\" --type-check -p test/tsconfig.json",
+    "lint": "run-p lint:*",
     "prebuild:test": "del test/out-tsc",
+    "prebuild": "del dist",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
     "test:unit": "ava --verbose",
