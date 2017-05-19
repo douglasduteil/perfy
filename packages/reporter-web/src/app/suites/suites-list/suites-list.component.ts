@@ -23,7 +23,6 @@ export class SuitesListComponent implements OnInit {
         this.suiteIds = Object.keys(suites);
         this.suites = suites;
       })
-
   }
 
 }
