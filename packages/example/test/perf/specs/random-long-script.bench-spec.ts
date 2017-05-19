@@ -1,14 +1,14 @@
 //
 
-import { browser, by, element } from "protractor";
+import { browser, by, element } from 'protractor';
 
-import { runner } from "../benchpress-runner";
+import { runner } from '../benchpress-runner';
 
 const execute = () => {
-  "Nothing to execute here";
+  'Nothing to execute here';
 };
 
-describe("Random long script", () => {
+describe('Random long script', () => {
   it('should randomly take time to run', () => {
     browser.ignoreSynchronization = true;
 
@@ -18,11 +18,11 @@ describe("Random long script", () => {
     browser.get(`${browser.baseUrl}?duration=${duration}&interval=${interval}`);
 
     // Force wait for DOMLoad
-    browser.wait(() => element(by.id("root")).isPresent(), 10000);
+    browser.wait(() => element(by.id('root')).isPresent(), 10000);
 
     return runner.sample({
       id: `random-long-script`,
-      execute,
+      execute
     });
   });
 });

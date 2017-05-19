@@ -8,10 +8,10 @@ import {
   RegressionSlopeValidator,
   Runner,
   SeleniumWebDriverAdapter,
-  Validator,
-} from "@angular/benchpress";
+  Validator
+} from '@angular/benchpress';
 
-import { config } from "./perfy.conf";
+import { config } from './perfy.conf';
 
 export const runner = new Runner([
   // use protractor as Webdriver client
@@ -24,7 +24,7 @@ export const runner = new Runner([
   { provide: RegressionSlopeValidator.SAMPLE_SIZE, useValue: 10 },
 
   // use the 'renderTime' metric to calculate slope regression
-  { provide: RegressionSlopeValidator.METRIC, useValue: "scriptTime" },
+  { provide: RegressionSlopeValidator.METRIC, useValue: 'scriptTime' },
   { provide: Options.FORCE_GC, useValue: true },
 
   // Add Reporters : Console + Json
@@ -34,6 +34,6 @@ export const runner = new Runner([
   { provide: JsonFileReporter.PATH, useValue: config.reportsFolder },
   MultiReporter.provideWith([
     ConsoleReporter,
-    JsonFileReporter,
-  ]),
+    JsonFileReporter
+  ])
 ]);
