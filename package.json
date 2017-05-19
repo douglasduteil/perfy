@@ -2,7 +2,6 @@
   "private": true,
   "scripts": {
     "lerna": "lerna --",
-    "postinstall": "lerna bootstrap",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "lerna run serve --stream",
     "start": "npm run serve",
@@ -12,8 +11,5 @@
   },
   "devDependencies": {
     "lerna": "^2.0.0-rc.4"
-  },
-  "dependencies": {
-    "lerna": "file:../lerna"
   }
 }

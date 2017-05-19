@@ -4,11 +4,6 @@
       "hoist": "+(ava|npm-run-all|tslint|typescript)"
     }
   },
-  "ignore": [
-    "legacy",
-    "@perfyjs/perfy",
-    "@perfyjs/reporter-web-old"
-  ],
   "lerna": "2.0.0-rc.4",
   "packages": [
     "packages/*"
