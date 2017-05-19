@@ -3,8 +3,8 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { SuitesHttpService } from './suites-http.service';
 import { MainLayoutModule } from './main-layout/main-layout.module';
+import { SuitesHttpService } from './suites-http.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { MainLayoutModule } from './main-layout/main-layout.module';
     MainLayoutModule
   ],
   providers: [
-    SuitesHttpService,
-  ],
+    SuitesHttpService
+  ]
 })
 export class CoreModule {}

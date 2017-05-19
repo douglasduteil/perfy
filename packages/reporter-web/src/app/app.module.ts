@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -22,11 +22,11 @@ import { AppComponent } from './app.component';
 
     AppRoutingModule,
     CoreModule,
-    SharedModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [
-    AppComponent,
-  ],
+    AppComponent
+  ]
 })
 export class AppModule { }

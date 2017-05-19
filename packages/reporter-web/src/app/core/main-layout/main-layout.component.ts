@@ -1,14 +1,19 @@
-import { AfterContentInit, Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  Input, OnDestroy, OnInit, ViewChild
+} from '@angular/core';
 
 import { MdSidenav } from '@angular/material';
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'perfy-main-layout',
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss'],
+  styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements AfterContentInit, OnDestroy, OnInit {
   private resizeEventSub: Subscription;
@@ -17,7 +22,7 @@ export class MainLayoutComponent implements AfterContentInit, OnDestroy, OnInit 
   //
 
   @Input()
-  menuMode = "";
+  menuMode = '';
 
   @ViewChild('sidenav')
   sidenav: MdSidenav
@@ -25,7 +30,7 @@ export class MainLayoutComponent implements AfterContentInit, OnDestroy, OnInit 
   //
 
   constructor(
-    private cd: ChangeDetectorRef,
+    private cd: ChangeDetectorRef
   ) {}
 
   //

@@ -5,19 +5,19 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'suites',
+    redirectTo: 'suites'
   },
   {
     data: {feedType: 'suites'},
     loadChildren: 'app/suites/suites.module#SuitesModule',
-    path: 'suites',
-  },
+    path: 'suites'
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

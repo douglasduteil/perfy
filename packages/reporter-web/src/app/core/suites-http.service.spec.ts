@@ -5,7 +5,7 @@ import { SuitesHttpService } from './suites-http.service';
 describe('SuitesHttpService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SuitesHttpService],
+      providers: [SuitesHttpService]
     });
   });
 

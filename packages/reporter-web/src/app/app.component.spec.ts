@@ -7,11 +7,11 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
+        AppComponent
       ],
       imports: [
-        RouterTestingModule,
-      ],
+        RouterTestingModule
+      ]
     }).compileComponents();
   }));
 

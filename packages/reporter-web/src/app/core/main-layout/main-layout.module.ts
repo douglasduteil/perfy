@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { MdButtonModule, MdIconModule, MdListModule, MdToolbarModule, MdSidenavModule } from '@angular/material';
+import { MdButtonModule, MdIconModule, MdListModule, MdSidenavModule, MdToolbarModule } from '@angular/material';
 
 import { MainLayoutComponent } from './main-layout.component';
 
@@ -19,6 +20,7 @@ import { MainLayoutComponent } from './main-layout.component';
     MdListModule,
     MdSidenavModule,
     MdToolbarModule,
-  ],
+    RouterModule
+  ]
 })
 export class MainLayoutModule { }

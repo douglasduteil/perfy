@@ -4,7 +4,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, O
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'perfy-metric',
   styleUrls: ['./metric.component.scss'],
-  templateUrl: './metric.component.html',
+  templateUrl: './metric.component.html'
 })
 export class MetricComponent implements AfterViewInit, OnChanges {
   updateMetricPlot: (data: any) => void;
@@ -62,12 +62,12 @@ function newMetricPlot(elm: HTMLElement) {
       showticklabels: false,
       y: [],
       line: {
-        width: 1,
+        width: 1
       },
       error_y: {
         array: [],
         thickness: 0.5,
-        width: 0,
+        width: 0
       },
       name: 'default'
     };
@@ -85,16 +85,16 @@ function newMetricPlot(elm: HTMLElement) {
       xaxis: {
         showgrid: false,
         ticktext: options.x,
-        tickvals: options.x.map((_, i) => i),
+        tickvals: options.x.map((_, i) => i)
       },
-      margin: { l: 40, b: 25, r: 10, t: 20 },
+      margin: { l: 40, b: 25, r: 10, t: 20 }
     };
 
     window.Plotly.newPlot(
       elm,
       data,
       layout,
-      { showLink: false },
+      { showLink: false }
     );
 
   };

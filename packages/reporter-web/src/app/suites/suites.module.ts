@@ -13,7 +13,7 @@ import { SuitesRoutingModule } from './suites-routing.module';
 @NgModule({
   declarations: [
     SuitesListComponent,
-    SuitesItemComponent,
+    SuitesItemComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +21,7 @@ import { SuitesRoutingModule } from './suites-routing.module';
     MdIconModule,
     MdListModule,
     MetricModule,
-    SuitesRoutingModule,
-  ],
+    SuitesRoutingModule
+  ]
 })
 export class SuitesModule { }

@@ -5,7 +5,7 @@ import { SuitesHttpService } from 'app/core';
 @Component({
   selector: 'perfy-suites-list',
   templateUrl: './suites-list.component.html',
-  styleUrls: ['./suites-list.component.scss'],
+  styleUrls: ['./suites-list.component.scss']
 })
 export class SuitesListComponent implements OnInit {
 
@@ -14,7 +14,7 @@ export class SuitesListComponent implements OnInit {
   suiteIds = [];
 
   constructor(
-    private suitesHttp: SuitesHttpService,
+    private suitesHttp: SuitesHttpService
   ) { }
 
   ngOnInit() {

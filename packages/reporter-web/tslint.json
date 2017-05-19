@@ -6,7 +6,7 @@
     "node_modules/codelyzer"
   ],
   "rules": {
-       "directive-selector": [
+    "directive-selector": [
       true,
       "attribute",
       "perfy",

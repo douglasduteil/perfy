@@ -5,10 +5,10 @@ import { MetricModule } from './metric/metric.module';
 
 @NgModule({
   exports: [
-    MetricModule,
+    MetricModule
   ],
   imports: [
-    MetricModule,
-  ],
+    MetricModule
+  ]
 })
 export class SharedModule { }

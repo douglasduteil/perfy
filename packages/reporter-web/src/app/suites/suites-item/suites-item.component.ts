@@ -7,7 +7,7 @@ import { SuitesHttpService } from 'app/core';
 @Component({
   selector: 'perfy-suites-item',
   templateUrl: './suites-item.component.html',
-  styleUrls: ['./suites-item.component.scss'],
+  styleUrls: ['./suites-item.component.scss']
 })
 export class SuitesItemComponent implements OnInit, OnDestroy {
   pending: boolean;
@@ -21,7 +21,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private suitesHttp: SuitesHttpService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -32,7 +32,6 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
       this.description = latestSuite.description;
       this.metrics = Object.entries(this.description.metrics)
         .map(([name, description]) => ({name, description}));
-
 
       this.suiteStateDiff = this.metrics.reduce((memo, metric) => {
         const latestValue = parseFloat(latestSuite.stats[metric.name]);
@@ -48,7 +47,6 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
 
         return memo;
       }, {});
-
 
       console.log(suite);
 
@@ -79,9 +77,9 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
 
       const latestIteration = suite.cases[0].iterations[0];
 
-      const description = latestIteration.description;
-      const metrics =  Object.entries(description.metrics)
-        .map(([name, description]) => ({name, description}));
+      const suiteDescription = latestIteration.description;
+      const metrics =  Object.entries(suiteDescription.metrics)
+        .map(([name, metricDescription]) => ({name, metricDescription}));
 
       const varianceToPlotlyOptions = (value) => {
         const varianceSeparator = '+-';
@@ -114,7 +112,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
             metricOption.traces[caseId].unshift({
               ticktext,
               y,
-              error_y,
+              error_y
             });
           });
         })
@@ -123,11 +121,11 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
       }, {});
       console.log('suiteSeries', suiteSeries)
 
-      this.description = description;
+      this.description = suiteDescription;
       this.metrics = metrics;
       this.metricOptions = suiteSeries;
 
-      return {description, metrics, suiteSeries}
+      return {suiteDescription, metrics, suiteSeries}
     };
 
     this.routeParams = this.route.params

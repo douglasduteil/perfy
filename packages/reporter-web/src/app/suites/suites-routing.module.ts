@@ -7,16 +7,16 @@ import { SuitesListComponent } from './suites-list/suites-list.component';
 const routes: Routes = [
   {
     component: SuitesListComponent,
-    path: '',
+    path: ''
   },
   {
     component: SuitesItemComponent,
-    path: ':id',
-  },
+    path: ':id'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class SuitesRoutingModule { }
