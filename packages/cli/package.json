@@ -24,6 +24,7 @@
     "watch:test:unit": "npm run test:unit -- -w"
   },
   "dependencies": {
+    "@perfyjs/core": "^0.0.0",
     "@perfyjs/reporter-web": "^0.0.0",
     "connect-history-api-fallback": "^1.3.0",
     "express": "^4.15.2",
@@ -41,7 +42,6 @@
     ]
   },
   "devDependencies": {
-    "@perfyjs/core": "^0.0.0",
     "@types/connect-history-api-fallback": "file:./typings/connect-history-api-fallback",
     "@types/execa": "file:./typings/execa",
     "@types/portscanner": "file:./typings/portscanner",
