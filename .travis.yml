@@ -1,18 +1,21 @@
 ---
 language: node_js
-sudo: false
+sudo: required
 git:
   depth: 1
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-beta
 
 node_js: stable
 
 before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
   - export CHROME_BIN=chromium-browser
   - mkdir -p ~/.config
-  - echo "--no-sandbox" > ~/.config/chromium-flags.conf
+  - echo "--no-sandbox --headless" > ~/.config/chromium-flags.conf
   - export KARMA_SINGLE_RUN=true
 
 before_script:
