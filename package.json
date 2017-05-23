@@ -2,6 +2,8 @@
   "private": true,
   "scripts": {
     "lerna": "lerna --",
+    "install:packages": "lerna bootstrap",
+    "install:reporter-web": "cd packages/reporter-web && npm i",
     "test": "lerna run test"
   },
   "devDependencies": {

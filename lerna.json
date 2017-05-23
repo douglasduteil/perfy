@@ -1,12 +1,10 @@
 {
   "commands": {
     "bootstrap": {
-      "hoist": "+(ava|del|npm-run-all|tslint|typescript)"
+      "hoist": "{ava,del,npm-run-all,tslint,typescript}",
+      "ignore": "@perfyjs/reporter-web"
     }
   },
-  "ignore": [
-    "@perfyjs/!(core|cli)"
-  ],
   "lerna": "2.0.0-rc.4",
   "packages": [
     "packages/*"

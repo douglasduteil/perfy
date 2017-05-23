@@ -1,14 +1,18 @@
 ---
+language: node_js
+sudo: false
 git:
   depth: 1
-sudo: false
+
+node_js: stable
+
+before_script:
+  - export CHROME_BIN=chromium-browser
+
+  - npm run install:packages
+  - npm run install:reporter-web
 
 cache:
   directories:
   - node_modules
-
-language: node_js
-node_js: node
-
-before_script: npm run lerna bootstrap
-
+  - packages/reporter-web/node_modules
