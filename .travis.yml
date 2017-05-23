@@ -8,15 +8,16 @@ addons:
     sources:
       - google-chrome
     packages:
-      - google-chrome-beta
+      - google-chrome-stable
 
 node_js: stable
 
 before_install:
   - export CHROME_BIN=google-chrome-stable
   - mkdir -p ~/.config
-  - echo "--no-sandbox --headless" > ~/.config/chromium-flags.conf
+  - echo "--no-sandbox --headless --disable-gpu" > ~/.config/chromium-flags.conf
   - export KARMA_SINGLE_RUN=true
+
 
 before_script:
   - npm run install:packages
