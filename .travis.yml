@@ -15,10 +15,18 @@ before_install:
   - echo "--no-sandbox --headless --disable-gpu" > ~/.config/chromium-flags.conf
   - export KARMA_SINGLE_RUN=true
 
-
-before_script:
-  - npm run install:packages
-  - npm run install:reporter-web
+jobs:
+  include:
+    - stage: Lerna bootstrap
+      script: npm run install:packages
+    - stage: npm i (in @perfy/reporter-web)
+      script: npm run install:reporter-web
+    - stage: Test
+      script:
+        - cd packages/reporter-web
+        - npm test
+    - stage: Test
+      script: npm test
 
 cache:
   directories:
