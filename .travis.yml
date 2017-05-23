@@ -1,14 +1,10 @@
 ---
 language: node_js
-sudo: required
+sudo: false
 git:
   depth: 1
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 node_js: stable
 
