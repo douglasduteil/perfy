@@ -28,12 +28,6 @@ module.exports = function (config) {
       reports: [ 'html', 'lcovonly' ],
       fixWebpackSourcePaths: true
     },
-    customLaunchers: {
-      ChromeOnTRAVIS:{
-        base: 'Chrome',
-        flags: ['-—no-sandbox']
-      }
-    },
     angularCli: {
       environment: 'dev'
     },
@@ -44,7 +38,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: process.env.TRAVIS ? ['ChromeOnTRAVIS'] : ['Chrome'],
+    browsers: ['Chrome'],
     singleRun: false
   });
 };
