@@ -12,21 +12,13 @@ node_js: stable
 before_install:
   - export CHROME_BIN=google-chrome-stable
   - mkdir -p ~/.config
-  - echo "--no-sandbox --headless --disable-gpu" > ~/.config/chromium-flags.conf
+  - echo "--no-sandbox --headless --disable-gpu --remote-debugging-port=9222" > ~/.config/chromium-flags.conf
   - export KARMA_SINGLE_RUN=true
 
-jobs:
-  include:
-    - stage: Lerna bootstrap
-      script: npm run install:packages
-    - stage: npm i (in @perfy/reporter-web)
-      script: npm run install:reporter-web
-    - stage: Test
-      script:
-        - cd packages/reporter-web
-        - npm test
-    - stage: Test
-      script: npm test
+
+before_script:
+  - npm run install:packages
+  - npm run install:reporter-web
 
 cache:
   directories:
