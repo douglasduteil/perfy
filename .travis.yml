@@ -5,20 +5,26 @@ sudo: false
 git:
   depth: 1
 addons:
-  chrome: stable
+  chrome: beta
 
 node_js: stable
 
 before_install:
-  - export CHROME_BIN=google-chrome-stable
-  - mkdir -p ~/.config
-  - echo "--no-sandbox --headless --disable-gpu --remote-debugging-port=9222" > ~/.config/chromium-flags.conf
+  - export CHROME_USER_FLAGS="--headless --disable-gpu --remote-debugging-port=9222"
+  # - export CHROME_USER_FLAGS="--enable-logging=stderr --v=1 --no-sandbox --headless --disable-gpu"
+  - export CHROME_BIN="google-chrome-beta $CHROME_USER_FLAGS"
   - export KARMA_SINGLE_RUN=true
 
 
 before_script:
-  - npm run install:packages
+  # - export CHROMIUM_FLAGS="--enable-logging=stderr --v=1"
+   # - npm run install:packages
+
+script:
+  - eval $CHROME_BIN &
   - npm run install:reporter-web
+  - cd packages/reporter-web
+  - ./node_modules/.bin/ng test --no-progress --single-run
 
 cache:
   directories:

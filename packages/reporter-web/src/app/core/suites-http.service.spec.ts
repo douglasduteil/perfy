@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 
 import { SuitesHttpService } from './suites-http.service';
 
-describe('SuitesHttpService', () => {
+xdescribe('SuitesHttpService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SuitesHttpService]
