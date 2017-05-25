@@ -35,9 +35,8 @@ xdescribe('AppComponent', () => {
   }));
 });
 
-
 describe('red', () => {
   it('should be red', () => {
     expect(true).toBeTruthy();
-  })
-})
+  });
+});

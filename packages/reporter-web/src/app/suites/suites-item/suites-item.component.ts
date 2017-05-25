@@ -69,7 +69,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
         return memo;
       }, {});
 
-      console.log('metricOptions', this.metricOptions)
+      console.log('metricOptions', this.metricOptions);
     };
 
     const _comparationCaseReport = (suite) => {
@@ -88,7 +88,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
         );
         const y = parseFloat(value);
         const error_y = y * (variancePercent / 100);
-        return {y, error_y}
+        return {y, error_y};
       };
 
       const suiteSeries = this.suite.cases.reduce((memo, acase) => {
@@ -106,7 +106,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
             metricOption.x.unshift(new Date(Number(iteration.timestamp)));
 
             const ticktext = iteration.timestamp;
-            const {y, error_y} = varianceToPlotlyOptions(value)
+            const {y, error_y} = varianceToPlotlyOptions(value);
 
             metricOption.traces[caseId] = metricOption.traces[caseId] || [];
             metricOption.traces[caseId].unshift({
@@ -115,17 +115,17 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
               error_y
             });
           });
-        })
+        });
 
         return memo;
       }, {});
-      console.log('suiteSeries', suiteSeries)
+      console.log('suiteSeries', suiteSeries);
 
       this.description = suiteDescription;
       this.metrics = metrics;
       this.metricOptions = suiteSeries;
 
-      return {suiteDescription, metrics, suiteSeries}
+      return {suiteDescription, metrics, suiteSeries};
     };
 
     this.routeParams = this.route.params
@@ -147,7 +147,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
             console.error(e);
             // might want to add a message here...
           })
-          .then(() => { this.pending = false });
+          .then(() => { this.pending = false; });
       });
   }
 

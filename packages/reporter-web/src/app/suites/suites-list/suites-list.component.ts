@@ -22,7 +22,7 @@ export class SuitesListComponent implements OnInit {
       .then((suites) => {
         this.suiteIds = Object.keys(suites);
         this.suites = suites;
-      })
+      });
   }
 
 }

@@ -25,7 +25,7 @@ export class MainLayoutComponent implements AfterContentInit, OnDestroy, OnInit 
   menuMode = '';
 
   @ViewChild('sidenav')
-  sidenav: MdSidenav
+  sidenav: MdSidenav;
 
   //
 

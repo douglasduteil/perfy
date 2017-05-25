@@ -10,12 +10,12 @@ export class SuitesHttpService {
   getSuites(): Promise<any[]> {
     return this.http.get('/api/suites.json')
       .toPromise()
-      .then((body) => body.json())
+      .then((body) => body.json());
   }
 
   getSuite(id: string): Promise<any> {
     return this.http.get(`/api/suites/${id}.json`)
       .toPromise()
-      .then((body) => body.json())
+      .then((body) => body.json());
   }
 }

@@ -21,7 +21,7 @@ export class MetricComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
-    console.log('> this.series', this.metricOptions)
+    console.log('> this.series', this.metricOptions);
 
     const plotlyPlotElm: HTMLDivElement = this.plotlyPlotRefElm.nativeElement;
     this.updateMetricPlot = newMetricPlot(plotlyPlotElm);
