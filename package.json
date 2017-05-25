@@ -3,10 +3,9 @@
   "scripts": {
     "lerna": "lerna --",
     "install:packages": "lerna bootstrap",
-    "install:reporter-web": "cd packages/reporter-web && npm i",
     "test": "lerna run test"
   },
   "devDependencies": {
-    "lerna": "^2.0.0-rc.4"
+    "lerna": "^2.0.0-rc.5"
   }
 }

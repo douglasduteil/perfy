@@ -29,4 +29,7 @@ script:
 cache:
   directories:
   - node_modules
+  - packages/cli/node_modules
+  - packages/core/node_modules
+  - packages/example/node_modules
   - packages/reporter-web/node_modules
