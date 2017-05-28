@@ -25,53 +25,6 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const _simpleCaseReport = (suite) => {
-      const latestSuite = suite[0];
-      const previousSuite = suite[1];
-
-      this.description = latestSuite.description;
-      this.metrics = Object.entries(this.description.metrics)
-        .map(([name, description]) => ({name, description}));
-
-      this.suiteStateDiff = this.metrics.reduce((memo, metric) => {
-        const latestValue = parseFloat(latestSuite.stats[metric.name]);
-        const previousValue = parseFloat(previousSuite.stats[metric.name]);
-        const diff = latestValue - previousValue;
-        // TODO: consider ~0.1 difference as unchanged
-        const velocity = diff > 0 ? '&#8599;' : diff < 0 ? '&#8600' : '&#8605';
-
-        memo[metric.name] = {
-          value: latestValue,
-          velocity
-        };
-
-        return memo;
-      }, {});
-
-      console.log(suite);
-
-      this.metricOptions = this.suite.reduce((memo, iteration) => {
-        const { stats } = iteration;
-
-        Object.entries(stats).forEach(([name, value]) => {
-          memo[name] = memo[name] || [];
-
-          const varianceSeparator = '+-';
-          const variancePercent = parseFloat(value.slice(
-            value.indexOf(varianceSeparator) + varianceSeparator.length)
-          );
-          const ticktext = iteration.timestamp;
-          const y = parseFloat(value);
-          const error_y = y * (variancePercent / 100);
-          memo[name].push({ ticktext, y, error_y });
-        });
-
-        return memo;
-      }, {});
-
-      console.log('metricOptions', this.metricOptions);
-    };
-
     const _comparationCaseReport = (suite) => {
       console.log('comp suite', suite);
 
@@ -137,11 +90,6 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
           .then((suite) => {
             this.suite = suite;
             _comparationCaseReport(suite);
-            // const metaData = suite.cases.length === 1
-              // target perf case
-              // ? _simpleCaseReport(suite)
-              // comparation case
-              // : _comparationCaseReport(suite);
           })
           .catch((e) => {
             console.error(e);
