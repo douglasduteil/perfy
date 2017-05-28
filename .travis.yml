@@ -14,6 +14,7 @@ cache:
   - ~/.npm
   - $(npm config get prefix)/bin/npm
   - $(npm config get prefix)/lib/node_module/npm
+
   - node_modules
   - packages/cli/node_modules
   - packages/core/node_modules
