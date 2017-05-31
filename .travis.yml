@@ -35,4 +35,8 @@ jobs:
       script: true
     - stage: test
       install: true
-      before_script: cd packages/cli
+      before_script:
+      - ls packages/cli
+      - ls packages/cli/node_modules
+      - ls packages/cli/node_modules/.bin
+      - cd packages/cli
