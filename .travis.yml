@@ -12,15 +12,27 @@ node_js: stable
 
 cache:
   directories:
+  - $(npm config get cache)
   - node_modules
+  - packages/cli/node_modules
+  - packages/core/node_modules
+  - packages/example/node_modules
+  - packages/reporter-web/node_modules
+
+before_install:
+  - if [[ `npm -v` != 5* ]]; then npm i -g npm@5; fi
+
+  - export CHROME_BIN="google-chrome-beta"
+  - export KARMA_SINGLE_RUN=true
+
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 
 jobs:
   include:
     - stage: prepare cache
       script: true
     - stage: test
-      script: echo test 1
-    - stage: test
-      script: echo test 2
-    - stage: test
-      script: echo test 3
+      install: true
+      before_script: cd packages/cli
