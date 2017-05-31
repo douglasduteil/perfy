@@ -32,7 +32,7 @@ before_install:
 jobs:
   include:
     - stage: prepare cache
-      script: true
+      script: npm run install:packages
     - stage: test
       install: true
       before_script:
