@@ -10,7 +10,17 @@ addons:
 
 node_js: stable
 
+cache:
+  directories:
+  - node_modules
+
 jobs:
   include:
     - stage: prepare cache
       script: true
+    - stage: test
+      script: echo test 1
+    - stage: test
+      script: echo test 2
+    - stage: test
+      script: echo test 3
