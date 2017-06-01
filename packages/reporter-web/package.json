@@ -6,7 +6,7 @@
   "scripts": {
     "build": "ng build --prod --aot",
     "e2e": "ng e2e",
-    "lint": "ng lint",
+    "lint": "ng lint --type-check",
     "ng": "ng",
     "serve": "npm run watch:build",
     "start": "npm run serve",
