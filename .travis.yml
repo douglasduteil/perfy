@@ -31,12 +31,7 @@ before_install:
 
 jobs:
   include:
-    - stage: prepare cache
-      script: npm run install:packages
-    - stage: test
-      install: true
-      before_script:
-      - ls packages/cli
-      - ls packages/cli/node_modules
-      - ls packages/cli/node_modules/.bin
-      - cd packages/cli
+    - stage: cd packages/cli
+    - stage: cd packages/core
+    - stage: cd packages/example
+    - stage: cd packages/reporter-web
