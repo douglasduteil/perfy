@@ -27,7 +27,7 @@ jobs:
   include:
     - stage: prepare cache
       before_script: nvm i 7
-      script: nvm exec 7 npm run install:packages
+      script: npm run install:packages
     - stage: test info
       install: true
       before_script:
