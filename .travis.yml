@@ -17,6 +17,7 @@ cache:
 
 before_install:
   - nvm i 7
+  - nvm use stable
   - npm i -g npm@5
 
   - export CHROME_BIN="google-chrome-beta"
