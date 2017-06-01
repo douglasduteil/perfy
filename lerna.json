@@ -4,9 +4,6 @@
       "hoist": "{ava,del,npm-run-all,tslint,typescript}"
     }
   },
-  "ignore": [
-    "@perfyjs/!(core|cli)"
-  ],
   "lerna": "2.0.0-rc.5",
   "packages": [
     "packages/*"

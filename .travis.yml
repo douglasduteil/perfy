@@ -5,9 +5,6 @@ sudo: false
 git:
   depth: 1
 
-addons:
-  chrome: beta
-
 node_js: stable
 
 cache:
@@ -18,14 +15,11 @@ cache:
   - packages/cli/dist
   - packages/core/node_modules
   - packages/core/dist
+  - packages/example/node_modules
+  - packages/example/dist
+  - packages/reporter-web/node_modules
+  - packages/reporter-web/dist
 
-before_install:
-  - export CHROME_BIN="google-chrome-beta"
-  - export KARMA_SINGLE_RUN=true
-
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
 
 jobs:
   include:
@@ -38,9 +32,18 @@ jobs:
     -
       install: true
       before_script: cd packages/core
-    # -
-    #   install: true
-    #   before_script: cd packages/example
-    # -
-    #   install: true
-    #   before_script: cd packages/reporter-web
+    -
+      addons:
+        chrome: beta
+      install: true
+      before_install:
+        - export CHROME_BIN="google-chrome-beta"
+        - export KARMA_SINGLE_RUN=true
+
+        - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
+        - sleep 3 # give xvfb some time to start
+      before_script: cd packages/example
+    -
+      install: true
+      before_script: cd packages/reporter-web
