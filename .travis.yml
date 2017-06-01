@@ -29,13 +29,29 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
+before_script:
+  - npm run install:packages
+
 jobs:
   include:
+    - stage: prepare cache
+      script: npm run install:packages
+    - stage: test info
+      install: true
+      before_script:
+      - ls packages/cli
+      - ls packages/cli/node_modules
+      - ls packages/cli/node_modules/.bin
+      - cd packages/cli
     - stage: test
-      before_install: cd packages/cli
+      install: true
+      before_script: cd packages/cli
     -
-      before_install: cd packages/core
+      install: true
+      before_script: cd packages/core
     -
-      before_install: cd packages/example
+      install: true
+      before_script: cd packages/example
     -
-      before_install: cd packages/reporter-web
+      install: true
+      before_script: cd packages/reporter-web
