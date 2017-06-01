@@ -14,6 +14,8 @@ cache:
   directories:
   - $(npm config get cache)
   - node_modules
+  - packages/cli/node_modules
+  - packages/core/node_modules
 
 before_install:
   - export CHROME_BIN="google-chrome-beta"
