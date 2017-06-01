@@ -27,13 +27,13 @@ jobs:
       before_script: nvm i 7
       script: npm run install:packages
     - stage: test
-      install: true
+      install: skip
       before_script: cd packages/cli
     -
-      install: true
+      install: skip
       before_script: cd packages/core
     -
-      install: true
+      install: skip
       before_script: cd packages/example
     -
       addons:
