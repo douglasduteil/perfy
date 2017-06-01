@@ -26,8 +26,8 @@
     ]
   },
   "dependencies": {
-    "debug": "^2.6.6",
-    "glob": "^7.1.1",
+    "debug": "^2.6.8",
+    "glob": "^7.1.2",
     "lodash": "^4.17.4",
     "lowdb": "^0.16.2",
     "param-case": "^2.1.1",
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@types/debug": "0.0.29",
     "@types/glob": "^5.0.30",
-    "@types/lodash": "^4.14.63",
+    "@types/lodash": "^4.14.64",
     "@types/lowdb": "^0.15.0",
     "@types/pify": "0.0.28",
     "ava": "^0.19.1",
@@ -46,7 +46,7 @@
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
     "npm-run-all": "^4.0.2",
-    "tslint": "^5.1.0",
-    "typescript": "^2.3.0"
+    "tslint": "^5.4.2",
+    "typescript": "^2.3.4"
   }
 }
