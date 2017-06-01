@@ -31,7 +31,11 @@ before_install:
 
 jobs:
   include:
-    - stage: cd packages/cli
-    - stage: cd packages/core
-    - stage: cd packages/example
-    - stage: cd packages/reporter-web
+    - stage: test
+      before_install: cd packages/cli
+    -
+      before_install: cd packages/core
+    -
+      before_install: cd packages/example
+    -
+      before_install: cd packages/reporter-web
