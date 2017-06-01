@@ -54,18 +54,18 @@ export class MetricComponent implements AfterViewInit, OnChanges {
 }
 
 function newMetricPlot(elm: HTMLElement) {
-  return (options) => {
+  return (options: any) => {
 
     const defaultDataOptions =  {
       type: 'scatter',
       mode: 'lines',
       showticklabels: false,
-      y: [],
+      y: [] as number[],
       line: {
         width: 1
       },
       error_y: {
-        array: [],
+        array: [] as number[],
         thickness: 0.5,
         width: 0
       },
@@ -73,7 +73,7 @@ function newMetricPlot(elm: HTMLElement) {
     };
 
     const data = Object.entries(options.traces)
-      .map(([name, serie]) => {
+      .map(([name, serie]: [string, Array<{y: number, error_y: number}>]) => {
         const traceData = {...defaultDataOptions};
         traceData.name = name;
         traceData.y = serie.map(({y}) => y);
@@ -85,7 +85,7 @@ function newMetricPlot(elm: HTMLElement) {
       xaxis: {
         showgrid: false,
         ticktext: options.x,
-        tickvals: options.x.map((_, i) => i)
+        tickvals: options.x.map((_: any, i: number) => i)
       },
       margin: { l: 40, b: 25, r: 10, t: 20 }
     };

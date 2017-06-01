@@ -25,7 +25,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const _comparationCaseReport = (suite) => {
+    const _comparationCaseReport = (suite: any) => {
       console.log('comp suite', suite);
 
       const latestIteration = suite.cases[0].iterations[0];
@@ -34,7 +34,7 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
       const metrics =  Object.entries(suiteDescription.metrics)
         .map(([name, metricDescription]) => ({name, metricDescription}));
 
-      const varianceToPlotlyOptions = (value) => {
+      const varianceToPlotlyOptions = (value: string) => {
         const varianceSeparator = '+-';
         const variancePercent = parseFloat(value.slice(
           value.indexOf(varianceSeparator) + varianceSeparator.length)
@@ -44,8 +44,8 @@ export class SuitesItemComponent implements OnInit, OnDestroy {
         return {y, error_y};
       };
 
-      const suiteSeries = this.suite.cases.reduce((memo, acase) => {
-        acase.iterations.forEach((iteration) => {
+      const suiteSeries = this.suite.cases.reduce((memo: any, acase: any) => {
+        acase.iterations.forEach((iteration: any) => {
           const { stats } = iteration;
 
           Object.entries(stats).forEach(([name, value]) => {
