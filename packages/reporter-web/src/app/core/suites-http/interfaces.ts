@@ -1,3 +1,3 @@
-import { IPerfySuite } from '@perfy/core';
+import { IPerfySuite } from '@perfyjs/types';
 
-export interface ISuite extends IPerfySuite {}
+export type ISuiteResponse = IPerfySuite;
