@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "ng build --prod --aot",
+    "build": "ng build --prod",
     "e2e": "ng e2e",
     "lint": "ng lint --type-check",
     "ng": "ng",
