@@ -19,6 +19,8 @@ cache:
   - packages/example/dist
   - packages/reporter-web/node_modules
   - packages/reporter-web/dist
+  - packages/types/node_modules
+  - packages/types/dist
 
 
 jobs:
@@ -37,6 +39,9 @@ jobs:
     -
       install: skip
       before_script: cd packages/example
+    -
+      install: skip
+      before_script: cd packages/types
     -
       addons:
         chrome: beta
