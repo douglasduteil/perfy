@@ -22,7 +22,6 @@ cache:
   - packages/types/node_modules
   - packages/types/dist
 
-
 jobs:
   include:
     - stage: prepare cache
@@ -64,13 +63,21 @@ jobs:
         # use it to keep node-sass happy.
         - nvm i 7
         - cd packages/reporter-web
+
     - stage: deploy
       install: skip
-      script: skip
+      before_script: cd packages/example
+      script: npm run perf:test
+      after_success:
+        - npm run perfy -- update
+        - npm run perfy -- report
+      before_deploy:
+        - mkdir -p ghpages/example
+        - mv perfy_report ghpages/example
       deploy:
         provider: pages
         skip_cleanup: true
-        local_dir: dist
+        local_dir: ghpages
         github-token: $GITHUB_TOKEN
         on:
           branch: master

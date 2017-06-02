@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "description": "Examples of project using perfy",
   "scripts": {
-    "perf:serve": "perfy serve",
     "perf:report": "perfy report",
-    "perf:run": "protractor test/perf/protractor.conf.js",
-    "perf": "npm-s perf:run perf:open",
+    "perf:serve": "perfy serve",
+    "perf:test": "protractor test/perf/protractor.conf.js",
+    "perfy": "perfy --",
     "postinstall": "npm run webdriver-update",
     "serve": "node server.js",
     "start": "npm run serve",
