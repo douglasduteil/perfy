@@ -34,13 +34,13 @@ jobs:
       before_script: cd packages/cli
       before_cache:
         # clean test output
-        - rm -rf prebuild:test
+        - npm run prebuild:test
     -
       install: skip
       before_script: cd packages/core
       before_cache:
         # clean test output
-        - rm -rf prebuild:test
+        - npm run prebuild:test
     -
       install: skip
       before_script: cd packages/example
