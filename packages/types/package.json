@@ -1,0 +1,26 @@
+{
+  "name": "@perfyjs/types",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build:test": "tsc -p test/tsconfig.json",
+    "build": "tsc --module commonjs --outDir dist",
+    "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
+    "lint": "run-p lint:*",
+    "prebuild": "del dist",
+    "prepublish": "npm run build",
+    "serve": "npm run build -- -w",
+    "test": "echo \"No test to preform\"",
+    "watch:build:test": "npm run build:test -- -w"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "del-cli": "^1.0.0",
+    "npm-run-all": "^4.0.2",
+    "tslint": "^5.4.2",
+    "typescript": "^2.3.4"
+  }
+}
