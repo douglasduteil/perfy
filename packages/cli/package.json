@@ -17,7 +17,7 @@
     "prepublish": "npm run build",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
-    "test:unit": "ava --verbose",
+    "test:unit": "ava --verbose --no-cache",
     "test": "run-s lint build:test test:unit",
     "watch:build:test": "npm run build:test -- -w",
     "watch:build": "npm run build -- -w",
