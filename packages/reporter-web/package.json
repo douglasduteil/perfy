@@ -10,7 +10,8 @@
     "ng": "ng",
     "serve": "npm run watch:build",
     "start": "npm run serve",
-    "test": "ng test --single-run --no-progress",
+    "test:unit": "ng test --single-run --no-progress",
+    "test": "run-s lint test:unit build",
     "watch:build": "npm run build -- --watch --no-progress"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "node-sass": "^4.5.3",
+    "npm-run-all": "^4.0.2",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "^5.4.2",
