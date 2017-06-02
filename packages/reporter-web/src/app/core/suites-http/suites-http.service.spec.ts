@@ -23,29 +23,46 @@ describe('SuitesHttpService', () => {
     });
   });
 
+  afterEach(inject([XHRBackend], (mockBackend: MockBackend) => {
+    mockBackend.verifyNoPendingRequests();
+  }));
+
   describe('#getSuites', () => {
-    it('should ...', inject(
+    it('should return an array of suites', inject(
       [SuitesHttpService, XHRBackend],
       (service: SuitesHttpService, mockBackend: MockBackend) => {
-        const response = new Response(new ResponseOptions({body: 'sdf'}));
-        mockBackend.connections.subscribe((c: MockConnection) => c.mockRespond(response));
+        const mockResponse = [{foo: 'bar'}];
+        const response = new Response(new ResponseOptions({body: JSON.stringify(mockResponse)}));
+        mockBackend.connections
+        .subscribe((c: MockConnection) => {
+          expect(c.request.url).toEqual('api_url/suites.json');
+          c.mockRespond(response);
+        });
 
         const reponseCallback = jasmine.createSpy('reponseCallback');
         service.getSuites().first().subscribe(reponseCallback);
 
-        expect(reponseCallback).toHaveBeenCalledWith();
+        expect(reponseCallback).toHaveBeenCalledWith(mockResponse);
       }
     ));
   });
 
   describe('#getSuite', () => {
-    it('should return one suite', inject(
-      [SuitesHttpService],
-      (service: SuitesHttpService) => {
+    it('should return the suite foo', inject(
+      [SuitesHttpService, XHRBackend],
+      (service: SuitesHttpService, mockBackend: MockBackend) => {
+        const mockResponse = {foo: 'bar'};
+        const response = new Response(new ResponseOptions({body: JSON.stringify(mockResponse)}));
+        mockBackend.connections
+        .subscribe((c: MockConnection) => {
+          expect(c.request.url).toEqual('api_url/suites/foo.json');
+          c.mockRespond(response);
+        });
 
-        service.getSuite('foo');
+        const reponseCallback = jasmine.createSpy('reponseCallback');
+        service.getSuite('foo').first().subscribe(reponseCallback);
 
-        expect(service).toBeTruthy();
+        expect(reponseCallback).toHaveBeenCalledWith(mockResponse);
       }
     ));
   });

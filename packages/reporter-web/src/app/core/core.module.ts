@@ -3,7 +3,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { SuitesHttpService } from './suites-http.service';
+import { SuitesHttpService } from './suites-http/suites-http.service';
 
 @NgModule({
   declarations: [
