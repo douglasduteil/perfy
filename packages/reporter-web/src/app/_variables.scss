@@ -5,31 +5,6 @@
 //-----------------------------------------------------------------------------
 
 
-//
-//== External
-//-----------------------------------------------------------------------------
-
-@import '~@angular/material/theming';
-
-
-//
-//== Colors
-//-----------------------------------------------------------------------------
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue.
-$perfy-app-primary: mat-palette($mat-indigo);
-$perfy-app-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$perfy-app-warn: mat-palette($mat-red);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$perfy-app-theme: mat-light-theme($perfy-app-primary, $perfy-app-accent, $perfy-app-warn);
-
-
-
 //== Media queries breakpoints
 //-----------------------------------------------------------------------------
 

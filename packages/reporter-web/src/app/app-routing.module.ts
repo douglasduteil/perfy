@@ -5,12 +5,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'suites'
+    redirectTo: 'home'
   },
   {
-    data: {feedType: 'suites'},
-    loadChildren: 'app/suites/suites.module#SuitesModule',
-    path: 'suites'
+    loadChildren: 'app/home/home.module#HomeModule',
+    path: 'home'
   }
 ];
 

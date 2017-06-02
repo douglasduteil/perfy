@@ -3,8 +3,16 @@
 //== Normalize
 //-----------------------------------------------------------------------------
 
+html, body {
+  height: 100%
+}
+
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   margin: 0;
+  background-color: #f5f5f5;
 
   html.wf-roboto-n4-active.wf-active > & {
     font-family:
@@ -19,16 +27,9 @@ body {
   }
 }
 
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($perfy-app-theme);
+perfy-root {
+  flex: 1;
+}
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

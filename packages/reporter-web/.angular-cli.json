@@ -28,7 +28,6 @@
         ]
       },
       "scripts": [
-        "../node_modules/plotly.js/dist/plotly-basic.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
