@@ -17,8 +17,8 @@
     "serve": "npm run build -- -w",
     "test:unit": "ava --verbose --no-cache",
     "test": "run-s lint build:test test:unit",
-    "watch:build:test": "npm run build:test -- -w",
-    "watch:test:unit": "npm run test:unit -- -w"
+    "watch:build:test": "npm run build:test -- -w --pretty",
+    "watch:test:unit": "npm run test:unit -- -w --pretty"
   },
   "ava": {
     "files": [
@@ -26,8 +26,11 @@
     ]
   },
   "dependencies": {
+    "@perfyjs/reporter-web": "^0.0.0",
     "@perfyjs/types": "^0.0.0",
     "debug": "^2.6.8",
+    "fs-extra": "^3.0.1",
+    "get-stream": "^3.0.0",
     "glob": "^7.1.2",
     "lodash": "^4.17.4",
     "lowdb": "^0.16.2",
@@ -38,15 +41,23 @@
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
+    "@types/execa": "file:../@types/execa",
+    "@types/fs-extra": "^3.0.3",
+    "@types/get-stream": "file:../@types/get-stream",
     "@types/glob": "^5.0.30",
     "@types/lodash": "^4.14.64",
     "@types/lowdb": "^0.15.0",
+    "@types/memory-fs": "^0.3.0",
     "@types/pify": "0.0.28",
+    "@types/sinon": "^2.2.2",
     "ava": "^0.19.1",
     "del-cli": "^1.0.0",
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
+    "memory-fs": "^0.4.1",
     "npm-run-all": "^4.0.2",
+    "npmlog": "^4.1.0",
+    "sinon": "^2.3.2",
     "tslint": "^5.4.2",
     "typescript": "^2.3.4"
   }

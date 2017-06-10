@@ -1,0 +1,8 @@
+{
+  "name": "@types/portscanner",
+  "version": "2.1.1",
+  "main": "",
+  "dependencies": {
+    "@types/node": "^7.0.27"
+  }
+}

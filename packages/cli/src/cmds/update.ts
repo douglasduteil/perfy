@@ -1,27 +1,27 @@
 //
 
-import { copyFactory, database, resolverFactory } from '@perfyjs/core';
+import { resolve } from 'path';
+
+import { database, update } from '@perfyjs/core';
 
 import { log } from '../logger';
 
 //
 
-export const command = 'report';
+export const command = 'update';
 
-export const desc = 'report the local perfy_db.json';
+export const desc = 'update the local perfy_db.json';
 
 export interface IHandlerFactoryContext {
   database: typeof database;
   log: typeof log;
-  resolve: (name: string) => string;
-  copy: (from: string, to: string) => Promise<string[]>;
+  update: typeof update;
 }
 
 export const defaultHandlerFactoryOptions: IHandlerFactoryContext = {
   database,
   log,
-  copy: copyFactory(),
-  resolve: resolverFactory()
+  update
 };
 
 export function handlerFactory(_context: Partial<IHandlerFactoryContext>) {
@@ -29,16 +29,22 @@ export function handlerFactory(_context: Partial<IHandlerFactoryContext>) {
     ...defaultHandlerFactoryOptions,
     ..._context
   };
-  const { log, copy, resolve } = context;
+
+  const { database, log, update } = context;
 
   return async function handler(argv: any) {
     log.silly(command, argv);
 
-    // const perfyDatabase = database(resolve(process.cwd(), 'perfy_db.json'));
-    const reportorPath = resolve('web');
+    const perfyDatabase = database(resolve(process.cwd(), 'perfy_db.json'));
 
-    const dest = 'perfy_report';
-    return copy(reportorPath, dest)
+    const reportsFolder = './benchpress_reports';
+
+    return update({
+      database: perfyDatabase,
+      cwd: process.cwd(),
+      reportsFolder,
+      pattern: '*.json'
+    })
     .catch((e) => {
       log.error(command, e);
     });

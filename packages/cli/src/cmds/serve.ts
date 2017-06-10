@@ -1,8 +1,8 @@
 //
 
-import { dirname, resolve } from 'path';
+import { resolve } from 'path';
 
-import { database } from '@perfyjs/core';
+import { database, resolverFactory } from '@perfyjs/core';
 
 import { log } from '../logger';
 
@@ -15,11 +15,8 @@ export const desc = 'Explore the result';
 export function handler(argv: any) {
   log.silly(command, argv);
 
-  const perfyReporterWeb = dirname(
-    require.resolve('@perfyjs/reporter-web')
-  );
-
-  const root = resolve(perfyReporterWeb, 'dist');
+  const resolveReporter = resolverFactory();
+  const root = resolveReporter('web');
   const perfyDatabase = database(resolve(process.cwd(), 'perfy_db.json'));
 
   // Dynamic imports

@@ -1,71 +1,32 @@
 //
-
-import { test} from 'ava';
-import { sandbox, SinonExpectation, SinonSandbox } from 'sinon';
-
-import * as core from '@perfyjs/core';
-import { handler } from '../../../src/cmds/report';
-import { log } from '../../../src/logger';
-
 //
 
-test.serial('should upate the database', async (t) => {
-  const {
-    databaseMock,
-    sandpit,
-    updateMock
-  } = t.context;
+import { test } from 'ava';
+import { sandbox } from 'sinon';
 
-  databaseMock.resolves();
-  updateMock.resolves();
+import { Reporter } from '@perfyjs/core';
 
-  await handler([]);
-
-  t.notThrows(sandpit.verify.bind(sandpit));
-});
-
-test.serial('should upate the database', async (t) => {
-  const {
-    databaseMock,
-    sandpit,
-    updateMock
-  } = t.context as ITestContext;
-
-  databaseMock.returns({});
-  updateMock.rejects(new Error('Nope nope'));
-  sandpit.mock(log).expects('error').once();
-
-  await handler([]);
-
-  t.notThrows(sandpit.verify.bind(sandpit));
-});
+import { handlerFactory, IHandlerFactoryContext } from '../../../src/cmds/report';
 
 //
-
-test.afterEach((t) => {
-  const {sandpit} = t.context as ITestContext;
-
-  sandpit.restore();
-});
 
 test.beforeEach((t) => {
-  const sandpit = sandbox.create();
-
-  const coreMock = sandpit.mock(core);
-  const databaseMock = coreMock.expects('database').once();
-  const updateMock = coreMock.expects('update').once();
-
-  const context: ITestContext = {
-    databaseMock,
-    sandpit,
-    updateMock
-  };
-
-  t.context = context;
+  t.context = {
+    reporter: Reporter.prototype,
+    log: {silly() {}, error() {}}
+  } as any as Partial<IHandlerFactoryContext>;
 });
 
-interface ITestContext {
-  databaseMock: SinonExpectation;
-  sandpit: SinonSandbox;
-  updateMock: SinonExpectation;
-}
+test('should report ', async (t) => {
+  const sandpit = sandbox.create();
+  const mocks = sandpit.mock(t.context.reporter);
+
+  mocks.expects('resolve').once().withArgs('web');
+  mocks.expects('report').once().withArgs({}).resolves();
+
+  const handler = handlerFactory(t.context);
+
+  await handler([]);
+
+  t.notThrows(sandpit.verify.bind(sandpit));
+});
