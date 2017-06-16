@@ -41,9 +41,9 @@
   },
   "devDependencies": {
     "@types/debug": "0.0.29",
-    "@types/execa": "file:../@types/execa",
+    "@types/execa": "^0.6.0",
     "@types/fs-extra": "^3.0.3",
-    "@types/get-stream": "file:../@types/get-stream",
+    "@types/get-stream": "^3.0.0",
     "@types/glob": "^5.0.30",
     "@types/lodash": "^4.14.64",
     "@types/lowdb": "^0.15.0",
