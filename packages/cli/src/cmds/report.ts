@@ -1,6 +1,6 @@
 //
 
-import { copyFactory, database, resolverFactory } from '@perfyjs/core';
+import { database, ReporterCopy, ReporterResolver } from '@perfyjs/core';
 
 import { log } from '../logger';
 
@@ -11,17 +11,17 @@ export const command = 'report';
 export const desc = 'report the local perfy_db.json';
 
 export interface IHandlerFactoryContext {
+  copy: (from: string, to: string) => Promise<void[]>;
   database: typeof database;
   log: typeof log;
   resolve: (name: string) => string;
-  copy: (from: string, to: string) => Promise<string[]>;
 }
 
 export const defaultHandlerFactoryOptions: IHandlerFactoryContext = {
+  copy: ReporterCopy.factory(),
   database,
   log,
-  copy: copyFactory(),
-  resolve: resolverFactory()
+  resolve: ReporterResolver.factory()
 };
 
 export function handlerFactory(_context: Partial<IHandlerFactoryContext>) {

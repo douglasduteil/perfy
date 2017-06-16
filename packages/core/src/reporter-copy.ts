@@ -11,7 +11,7 @@ export const context = {
   copyFn: fse.copy
 };
 
-export const copyFactory = ({log, copyFn} = context) => (from: string, to: string) => {
+export const factory = ({log, copyFn} = context) => (from: string, to: string) => {
   log.silly('@perfy/core', 'copy', from, to);
 
   return Promise.all([
@@ -19,4 +19,4 @@ export const copyFactory = ({log, copyFn} = context) => (from: string, to: strin
   ]);
 };
 
-export const copy = copyFactory();
+export const copy = factory();
