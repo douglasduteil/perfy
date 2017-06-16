@@ -64,9 +64,12 @@ jobs:
         - nvm i 7
         - cd packages/reporter-web
 
-    - stage: deploy
+    -
+      stage: deploy
+      addons:
+        chrome: beta
       install:
-        - export CHROME_BIN=$(which google-chrome-stable)
+        - export CHROME_BIN=$(which google-chrome-beta)
 
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
