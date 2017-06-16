@@ -16,6 +16,7 @@ exports.config = {
         '--enable-gpu-benchmarking',
         '--enable-thread-composting'
       ],
+      'binary': process.env.CHROME_BIN,
       'perfLoggingPrefs': {
         'traceCategories': 'v8,blink.console,devtools.timeline'
       }
