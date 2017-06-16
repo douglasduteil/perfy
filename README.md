@@ -16,7 +16,7 @@ The perfect companion tool for <a href="https://github.com/angular/angular/tree/
 </p>
 
 
-[Demo](https://douglasduteil.github.io/perfy/example)
+[Demo](https://douglasduteil.github.io/perfy/example/perfy_report/)
 
 ## Utils
 
