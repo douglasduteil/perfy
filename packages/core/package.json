@@ -45,11 +45,11 @@
     "@types/fs-extra": "^3.0.3",
     "@types/get-stream": "^3.0.0",
     "@types/glob": "^5.0.30",
-    "@types/lodash": "^4.14.64",
+    "@types/lodash": "^4.14.66",
     "@types/lowdb": "^0.15.0",
     "@types/memory-fs": "^0.3.0",
     "@types/pify": "0.0.28",
-    "@types/sinon": "^2.2.2",
+    "@types/sinon": "^2.3.1",
     "ava": "^0.19.1",
     "del-cli": "^1.0.0",
     "jsdom": "^11.0.0",
@@ -57,8 +57,8 @@
     "memory-fs": "^0.4.1",
     "npm-run-all": "^4.0.2",
     "npmlog": "^4.1.0",
-    "sinon": "^2.3.2",
-    "tslint": "^5.4.2",
+    "sinon": "^2.3.4",
+    "tslint": "^5.4.3",
     "typescript": "^2.3.4"
   }
 }

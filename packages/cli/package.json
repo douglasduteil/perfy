@@ -33,7 +33,7 @@
     "npmlog": "^4.1.0",
     "portscanner": "^2.1.1",
     "serve-static": "^1.12.3",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.2"
   },
   "ava": {
     "files": [
@@ -43,20 +43,20 @@
   "devDependencies": {
     "@types/execa": "^0.6.0",
     "@types/express": "^4.0.36",
-    "@types/lodash": "^4.14.64",
-    "@types/node": "7.0.28",
+    "@types/lodash": "^4.14.66",
+    "@types/node": "7.0.31",
     "@types/npmlog": "file:../@types/npmlog",
     "@types/portscanner": "file:../@types/portscanner",
-    "@types/sinon": "^2.2.2",
+    "@types/sinon": "^2.3.1",
     "@types/yargs": "^6.6.0",
     "ava": "^0.19.1",
     "del-cli": "^1.0.0",
-    "execa": "^0.6.3",
+    "execa": "^0.7.0",
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
     "npm-run-all": "^4.0.2",
-    "sinon": "^2.3.2",
-    "tslint": "^5.4.2",
+    "sinon": "^2.3.4",
+    "tslint": "^5.4.3",
     "typescript": "^2.3.4"
   }
 }
