@@ -44,7 +44,7 @@
     "@types/execa": "^0.6.0",
     "@types/express": "^4.0.36",
     "@types/lodash": "^4.14.66",
-    "@types/node": "7.0.31",
+    "@types/node": "7.0.28",
     "@types/npmlog": "file:../@types/npmlog",
     "@types/portscanner": "file:../@types/portscanner",
     "@types/sinon": "^2.3.1",
