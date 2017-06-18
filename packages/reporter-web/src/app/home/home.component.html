@@ -1,6 +1,27 @@
-<section class="nothing">
-  <figure>
-    <img src="https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif" alt="">
-    <figcaption>You don't have any test suite yet.</figcaption>
-  </figure>
-</section>
+<div *ngIf="suiteNames; else pending">
+  <div *ngIf="suiteNames.length; else nothing">
+
+    <div>List of {{ suiteNames.length }} suites</div>
+    <div
+    *ngFor="let suiteName of suiteNames"
+    >
+    <a [routerLink]="['/suite', suiteName]">- {{ suites[suiteName].name }} </a>
+    </div>
+  </div>
+
+  <ng-template #nothing class="nothing">
+    <figure>
+      <img src="https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif" alt="">
+      <figcaption>You don't have any test suite yet.</figcaption>
+    </figure>
+  </ng-template>
+</div>
+<ng-template #pending>
+  <div *ngIf="hasError; else loading">
+    An Error occur while trying to fetch for the "suites.json" file...
+  </div>
+  <ng-template #loading>
+    Loading...
+  </ng-template>
+
+</ng-template>

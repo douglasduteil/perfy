@@ -3,6 +3,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, JsonpModule } from '@angular/http';
 
+import { SUITES_API_URL } from './suites-http/config';
 import { SuitesHttpService } from './suites-http/suites-http.service';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SuitesHttpService } from './suites-http/suites-http.service';
   exports: [
   ],
   providers: [
-    SuitesHttpService
+    SuitesHttpService,
+    {provide: SUITES_API_URL, useValue: 'api'}
   ]
 })
 export class CoreModule {}
