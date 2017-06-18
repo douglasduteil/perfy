@@ -7,6 +7,9 @@ import { SuitesHttpService } from 'app/core/suites-http/suites-http.service';
 import { of } from 'rxjs/observable/of';
 import { HomeComponent } from './home.component';
 
+@Component({selector: 'perfy-noop', template: ''})
+class NoopTestComponent {}
+
 describe('HomeComponent', () => {
   const MockSuitesHttpService: jasmine.SpyObj<SuitesHttpService> = jasmine
     .createSpyObj('MockSuitesHttpService', [
@@ -57,6 +60,3 @@ describe('HomeComponent', () => {
     ]);
   });
 });
-
-@Component({selector: 'perfy-noop', template: ''})
-class NoopTestComponent {}
