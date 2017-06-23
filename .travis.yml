@@ -33,14 +33,14 @@ jobs:
 
     - stage: test
       env: PACKAGE=cli
+      install: skip
       before_script:
-        - npm run bootstrap
         - npm run build
       script: skip
     -
       env: PACKAGE=core
+      install: skip
       before_script:
-        - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
       script: skip
@@ -48,8 +48,8 @@ jobs:
         - cd ..
     -
       env: PACKAGE=example
+      install: skip
       before_script:
-        - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
       script: skip
@@ -57,6 +57,7 @@ jobs:
         - cd ..
     -
       env: PACKAGE=reporter-web
+      install: skip
       addons:
         chrome: beta
       before_install:
@@ -75,6 +76,7 @@ jobs:
         - cd ..
     -
       env: PACKAGE=types
+      install: skip
       before_script: cd packages/$PACKAGE
       script: skip
       before_cache:
