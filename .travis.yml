@@ -7,6 +7,13 @@ git:
 
 node_js: stable
 
+cache:
+  directories:
+  - packages/cli/dist
+  - packages/core/dist
+  - packages/reporter-web/dist
+  - packages/types/dist
+
 jobs:
   include:
     - stage: prepare cache
