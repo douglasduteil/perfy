@@ -33,6 +33,10 @@ jobs:
     -
       env: PACKAGE=core
       install: skip
+      script:
+        - cd node_midules
+        - cd node_midules/.bin
+        - npm test
       before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
