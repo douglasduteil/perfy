@@ -12,11 +12,8 @@ cache:
   - $(npm config get cache)
   - node_modules
   - packages/cli/dist
-  - packages/cli/node_modules
   - packages/core/dist
-  - packages/core/node_modules
   - packages/types/dist
-  - packages/types/node_modules
 
 jobs:
   include:
@@ -31,14 +28,14 @@ jobs:
 
     - stage: test
       env: PACKAGE=cli
-      install: skip
+      install: npm i
       before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
         - npm run prebuild:test
     -
       env: PACKAGE=core
-      install: skip
+      install: npm i
       script:
         - npm run install:packages
         - npm run build
@@ -48,13 +45,14 @@ jobs:
         - npm run prebuild:test
     -
       env: PACKAGE=example
-      install: skip
+      install: npm i
       before_script: cd packages/$PACKAGE
     -
       env: PACKAGE=reporter-web
       addons:
         chrome: beta
       install:
+        - npm i
         - export CHROME_BIN="google-chrome-beta"
         - export KARMA_SINGLE_RUN=true
 
@@ -65,7 +63,7 @@ jobs:
         - cd packages/$PACKAGE
     -
       env: PACKAGE=types
-      install: skip
+      install: npm i
       before_script: cd packages/$PACKAGE
 
     #
