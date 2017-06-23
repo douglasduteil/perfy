@@ -1,21 +1,33 @@
 //
 import * as path from 'path';
 
-import { test } from 'ava';
+import { Container } from 'inversify';
 import { stub } from 'sinon';
 
-import { context, factory } from '../../src/reporter-resolver';
+import { Logger, SilentLogger } from 'src/logger';
+import { ReporterResolver } from 'src/reporter-resolver';
 
 //
 
-test('should resolve @perfyjs/reporter-foo', (t) => {
-  const rootPath = path.resolve('');
+const rootPath = path.resolve('');
+const reporterPath = path.join(rootPath, 'fake_node_modules/@perfyjs/reporter-foo');
 
-  const reporterPath = path.join(rootPath, 'fake_node_modules/@perfyjs/reporter-foo');
-  const resolveFn = stub().returns(`${reporterPath}/index.js`);
-  const resolve = factory({...context, resolveFn});
+//
 
-  const expectedPath = resolve('foo');
+test('should resolve @perfyjs/reporter-foo', () => {
+  // given
+  const container = new Container();
+  container.bind(ReporterResolver).toSelf();
+  container.bind(Logger).to(SilentLogger);
+  container.bind(ReporterResolver.MODULE_RESOLVER).toConstantValue({
+    resolve: stub().returns(`${reporterPath}/index.js`)
+  });
 
-  t.is(expectedPath, path.join(reporterPath, 'dist'));
+  const reporterResolver = container.get(ReporterResolver);
+
+  // when
+  const expectedPath = reporterResolver.resolve('foo');
+
+  // then
+  expect(expectedPath).toBe(path.join(reporterPath, 'dist'));
 });

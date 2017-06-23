@@ -12,17 +12,27 @@
     "lint": "run-p lint:*",
     "prebuild:test": "del test/out-tsc",
     "prebuild": "del dist",
-    "prepublish": "npm run build",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
-    "test:unit": "ava --verbose --no-cache",
-    "test": "run-s lint build:test test:unit",
+    "test": "jest",
     "watch:build:test": "npm run build:test -- -w --pretty",
     "watch:test:unit": "npm run test:unit -- -w --pretty"
   },
-  "ava": {
-    "files": [
-      "test/out-tsc/test/**/*.js"
+  "jest": {
+    "transform": {
+      ".ts": "ts-jest/preprocessor.js"
+    },
+    "testRegex": "test/unit/.*\\.spec\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "setupFiles": [
+      "reflect-metadata"
+    ],
+    "modulePaths": [
+      "<rootDir>"
     ]
   },
   "dependencies": {
@@ -31,10 +41,12 @@
     "fs-extra": "^3.0.1",
     "get-stream": "^3.0.0",
     "glob": "^7.1.2",
+    "inversify": "^4.1.1",
     "lodash": "^4.17.4",
     "lowdb": "^0.16.2",
     "param-case": "^2.1.1",
     "pify": "^3.0.0",
+    "reflect-metadata": "^0.1.10",
     "sentence-case": "^2.1.1",
     "tcomb": "^3.2.20"
   },
@@ -44,19 +56,21 @@
     "@types/fs-extra": "^3.0.3",
     "@types/get-stream": "^3.0.0",
     "@types/glob": "^5.0.30",
+    "@types/jest": "^20.0.1",
     "@types/lodash": "^4.14.66",
     "@types/lowdb": "^0.15.0",
     "@types/memory-fs": "^0.3.0",
     "@types/pify": "0.0.28",
     "@types/sinon": "^2.3.1",
-    "ava": "^0.19.1",
     "del-cli": "^1.0.0",
+    "jest": "^20.0.4",
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
     "memory-fs": "^0.4.1",
     "npm-run-all": "^4.0.2",
     "npmlog": "^4.1.0",
     "sinon": "^2.3.4",
+    "ts-jest": "^20.0.6",
     "tslint": "^5.4.3",
     "typescript": "^2.3.4"
   }

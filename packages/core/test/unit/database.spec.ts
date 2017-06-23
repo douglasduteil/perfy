@@ -1,10 +1,11 @@
 //
 
-import { test } from 'ava';
+import { Container } from 'inversify';
 
-import { IDatabase } from '../../src/typings';
+import { IDatabase } from 'src/typings';
 
-import { database } from '../../src/database';
+import { Database } from 'src/database';
+import { Logger, SilentLogger } from 'src/logger';
 
 //
 
@@ -15,8 +16,36 @@ const testingLowDbOption: Lowdb.Options = {
 
 //
 
-test('should return empty suites by default', (t) => {
-  const db = database(filename, testingLowDbOption);
+test('should return empty suites by default', () => {
+  // given
+  const container = new Container();
+  container.bind(Database.FILE_NAME).toConstantValue(filename);
+  container.bind(Database.LOWDB_OPTIONS).toConstantValue(testingLowDbOption);
+  container.bind(Database).toSelf();
+  container.bind(Logger).to(SilentLogger);
 
-  t.deepEqual (db.value<IDatabase>(), { suites: {} });
+  const database = container.get(Database);
+
+  // when
+  database.instanciate();
+
+  const db = database.instance;
+
+  // then
+  expect(db.value<IDatabase>()).toEqual({ suites: {} });
+});
+
+test('should throw if not initialized', () => {
+  // given
+  const container = new Container();
+  container.bind(Database.FILE_NAME).toConstantValue(filename);
+  container.bind(Database.LOWDB_OPTIONS).toConstantValue(testingLowDbOption);
+  container.bind(Database).toSelf();
+  container.bind(Logger).to(SilentLogger);
+
+  // when
+  const database = container.get(Database);
+
+  // then
+  expect(() => database.instance).toThrowErrorMatchingSnapshot();
 });

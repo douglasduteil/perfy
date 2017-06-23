@@ -1,21 +1,32 @@
 //
-import * as path from 'path';
 
-import { test } from 'ava';
-import { stub } from 'sinon';
+import { Container } from 'inversify';
+import { mock } from 'sinon';
 
-import { context, factory } from '../../src/reporter-resolver';
+import { Logger, SilentLogger } from 'src/logger';
+import { ReporterCopy } from 'src/reporter-copy';
 
 //
 
-test('should resolve @perfyjs/reporter-foo', (t) => {
-  const rootPath = path.resolve('');
+const fakeFsExtra = { copy: Function.prototype };
 
-  const reporterPath = path.join(rootPath, 'fake_node_modules/@perfyjs/reporter-foo');
-  const resolveFn = stub().returns(`${reporterPath}/index.js`);
-  const resolve = factory({...context, resolveFn});
+//
 
-  const expectedPath = resolve('foo');
+test('should copy a folder foo to bar', async () => {
+  // given
+  const container = new Container();
+  container.bind(ReporterCopy.COPY_FS).toConstantValue(fakeFsExtra);
+  container.bind(Logger).to(SilentLogger);
+  container.bind(ReporterCopy).toSelf();
+  const reporterCopy = container.get(ReporterCopy);
 
-  t.is(expectedPath, path.join(reporterPath, 'dist'));
+  // expect
+  const mockFsExtra = mock(fakeFsExtra);
+  mockFsExtra.expects('copy').once().withArgs('foo', 'bar');
+
+  // then
+  await reporterCopy.copy('foo', 'bar');
+
+  // verify
+  expect(() => mockFsExtra.verify()).not.toThrow();
 });

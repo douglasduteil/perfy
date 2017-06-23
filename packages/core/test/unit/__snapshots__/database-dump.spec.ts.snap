@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should dump the foo and bar suite 1`] = `
+Array [
+  Array [
+    "dist/suites/foo.json",
+    Object {
+      "cases": Array [
+        Object {
+          "id": "foo iterations",
+          "iterations": Array [],
+        },
+      ],
+      "name": "Foo",
+    },
+  ],
+  Array [
+    "dist/suites/bar.json",
+    Object {
+      "cases": Array [
+        Object {
+          "id": "bar iterations",
+          "iterations": Array [],
+        },
+      ],
+      "name": "Bar",
+    },
+  ],
+  Array [
+    "dist/suites.json",
+    Object {
+      "bar": Object {
+        "name": "Bar",
+      },
+      "foo": Object {
+        "name": "Foo",
+      },
+    },
+  ],
+]
+`;
