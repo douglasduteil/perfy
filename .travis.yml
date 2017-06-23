@@ -14,6 +14,10 @@ cache:
   - packages/core/dist
   - packages/reporter-web/dist
   - packages/types/dist
+  - packages/cli/node_modules
+  - packages/core/node_modules
+  - packages/reporter-web/node_modules
+  - packages/types/node_modules
 
 jobs:
   include:
@@ -40,6 +44,8 @@ jobs:
         - npm run build
         - cd packages/$PACKAGE
       script: skip
+      before_cache:
+        - cd ..
     -
       env: PACKAGE=example
       before_script:
@@ -47,11 +53,13 @@ jobs:
         - npm run build
         - cd packages/$PACKAGE
       script: skip
+      before_cache:
+        - cd ..
     -
       env: PACKAGE=reporter-web
       addons:
         chrome: beta
-      install:
+      before_install:
         - export CHROME_BIN="google-chrome-beta"
         - export KARMA_SINGLE_RUN=true
 
@@ -63,10 +71,14 @@ jobs:
         - npm run build
         - cd packages/$PACKAGE
       script: skip
+      before_cache:
+        - cd ..
     -
       env: PACKAGE=types
       before_script: cd packages/$PACKAGE
       script: skip
+      before_cache:
+        - cd ..
 
     #
     #
@@ -76,6 +88,7 @@ jobs:
       addons:
         chrome: beta
       install:
+        - exit 1
         - export CHROME_BIN=$(which google-chrome-beta)
 
         - "export DISPLAY=:99.0"
