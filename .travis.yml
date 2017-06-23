@@ -9,12 +9,15 @@ node_js: stable
 
 cache:
   directories:
-  - $(npm config get cache)
   - node_modules
   - packages/cli/dist
+  - packages/cli/node_modules
   - packages/core/dist
+  - packages/core/node_modules
   - packages/reporter-web/dist
+  - packages/reporter-web/node_modules
   - packages/types/dist
+  - packages/types/node_modules
 
 jobs:
   include:
