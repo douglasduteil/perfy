@@ -13,13 +13,14 @@ cache:
   - node_modules
   - packages/cli/dist
   - packages/core/dist
+  - packages/reporter-web/dist
   - packages/types/dist
 
 jobs:
   include:
     - stage: prepare cache
       script:
-        - npm run install:packages
+        - npm run bootstrap
         - npm run build
 
     #
@@ -30,8 +31,8 @@ jobs:
       env: PACKAGE=cli
       install: skip
       before_script:
+        - npm run bootstrap
         - cd packages/$PACKAGE
-        - npm i
       before_cache:
         # clean test output
         - npm run prebuild:test
@@ -42,8 +43,8 @@ jobs:
         - npm run install:packages
         - npm run build
       before_script:
+        - npm run bootstrap
         - cd packages/$PACKAGE
-        - npm i
       before_cache:
         # clean test output
         - npm run prebuild:test
@@ -51,8 +52,8 @@ jobs:
       env: PACKAGE=example
       install: skip
       before_script:
+        - npm run bootstrap
         - cd packages/$PACKAGE
-        - npm i
     -
       env: PACKAGE=reporter-web
       addons:
@@ -65,8 +66,8 @@ jobs:
         - "sh -e /etc/init.d/xvfb start"
         - sleep 3 # give xvfb some time to start
       before_script:
+        - npm run bootstrap
         - cd packages/$PACKAGE
-        - npm i
     -
       env: PACKAGE=types
       install: npm i
