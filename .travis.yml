@@ -39,21 +39,12 @@ jobs:
         - cd packages/$PACKAGE
         - ls node_modules/@perfyjs
         - ls node_modules/@perfyjs/core
-      before_cache:
-        # clean test output
-        - npm run prebuild:test
     -
       env: PACKAGE=core
-      script:
-        - npm run bootstrap
-        - npm run build
       before_script:
         - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
-      before_cache:
-        # clean test output
-        - npm run prebuild:test
     -
       env: PACKAGE=example
       before_script:
@@ -77,7 +68,6 @@ jobs:
         - cd packages/$PACKAGE
     -
       env: PACKAGE=types
-      install: npm i
       before_script: cd packages/$PACKAGE
 
     #
