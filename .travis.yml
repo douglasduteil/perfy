@@ -28,31 +28,36 @@ jobs:
 
     - stage: test
       env: PACKAGE=cli
-      install: npm i
-      before_script: cd packages/$PACKAGE
+      install: skip
+      before_script:
+        - cd packages/$PACKAGE
+        - npm i
       before_cache:
         # clean test output
         - npm run prebuild:test
     -
       env: PACKAGE=core
-      install: npm i
+      install: skip
       script:
         - npm run install:packages
         - npm run build
-      before_script: cd packages/$PACKAGE
+      before_script:
+        - cd packages/$PACKAGE
+        - npm i
       before_cache:
         # clean test output
         - npm run prebuild:test
     -
       env: PACKAGE=example
-      install: npm i
-      before_script: cd packages/$PACKAGE
+      install: skip
+      before_script:
+        - cd packages/$PACKAGE
+        - npm i
     -
       env: PACKAGE=reporter-web
       addons:
         chrome: beta
       install:
-        - npm i
         - export CHROME_BIN="google-chrome-beta"
         - export KARMA_SINGLE_RUN=true
 
@@ -61,6 +66,7 @@ jobs:
         - sleep 3 # give xvfb some time to start
       before_script:
         - cd packages/$PACKAGE
+        - npm i
     -
       env: PACKAGE=types
       install: npm i
