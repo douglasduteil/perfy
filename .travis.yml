@@ -7,29 +7,32 @@ git:
 
 node_js: stable
 
+cache:
+  directories:
+  - $(npm config get cache)
+  - node_modules
+  - packages/cli/node_modules
+  - packages/cli/dist
+  - packages/core/node_modules
+  - packages/core/dist
+  - packages/example/node_modules
+  - packages/example/dist
+  - packages/reporter-web/node_modules
+  - packages/reporter-web/dist
+  - packages/types/node_modules
+  - packages/types/dist
+
 jobs:
   include:
     - stage: prepare cache
       script:
         - npm run install:packages
         - npm run build
-      cache:
-        directories:
-        # - $(npm config get cache)
-        - node_modules
-        - packages/cli/node_modules
-        - packages/cli/dist
-        - packages/core/node_modules
-        - packages/core/dist
-        - packages/example/node_modules
-        - packages/example/dist
-        - packages/reporter-web/node_modules
-        - packages/reporter-web/dist
-        - packages/types/node_modules
-        - packages/types/dist
+
     #
     #
     #
+
     - stage: test
       env: PACKAGE=cli
       install: skip
@@ -49,10 +52,6 @@ jobs:
       install: skip
       before_script: cd packages/$PACKAGE
     -
-      env: PACKAGE=types
-      install: skip
-      before_script: cd packages/$PACKAGE
-    -
       env: PACKAGE=reporter-web
       addons:
         chrome: beta
@@ -63,9 +62,12 @@ jobs:
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
         - sleep 3 # give xvfb some time to start
-
       before_script:
         - cd packages/$PACKAGE
+    -
+      env: PACKAGE=types
+      install: skip
+      before_script: cd packages/$PACKAGE
 
     #
     #
