@@ -3,7 +3,7 @@
   "scripts": {
     "lerna": "lerna --",
     "build": "lerna run build",
-    "install:packages": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap",
     "test": "lerna run test"
   },
   "devDependencies": {
