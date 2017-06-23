@@ -32,26 +32,21 @@ jobs:
       before_script:
         - npm run bootstrap
         - npm run build
-
-        - ls packages/core
-        - ls packages/core/dist
-        - npm run lerna run build --scope @perfyjs/core
-        - ls packages/core/dist
-        - cd packages/$PACKAGE
-        - ls node_modules/@perfyjs
-        - ls node_modules/@perfyjs/core
+      script: skip
     -
       env: PACKAGE=core
       before_script:
         - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
+      script: skip
     -
       env: PACKAGE=example
       before_script:
         - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
+      script: skip
     -
       env: PACKAGE=reporter-web
       addons:
@@ -67,9 +62,11 @@ jobs:
         - npm run bootstrap
         - npm run build
         - cd packages/$PACKAGE
+      script: skip
     -
       env: PACKAGE=types
       before_script: cd packages/$PACKAGE
+      script: skip
 
     #
     #
