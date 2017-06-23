@@ -9,6 +9,7 @@ node_js: stable
 
 cache:
   directories:
+  - node_modules
   - packages/cli/dist
   - packages/core/dist
   - packages/reporter-web/dist
