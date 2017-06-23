@@ -32,7 +32,11 @@ jobs:
       install: skip
       before_script:
         - npm run bootstrap
+        - ls packages/core
+        - ls packages/core/dist
         - cd packages/$PACKAGE
+        - ls node_modules/@perfyjs
+        - ls node_modules/@perfyjs/core
       before_cache:
         # clean test output
         - npm run prebuild:test
@@ -40,7 +44,7 @@ jobs:
       env: PACKAGE=core
       install: skip
       script:
-        - npm run install:packages
+        - npm run bootstrap
         - npm run build
       before_script:
         - npm run bootstrap
