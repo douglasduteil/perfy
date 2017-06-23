@@ -26,25 +26,34 @@ jobs:
   include:
     - stage: prepare cache
       script: npm run install:packages
+
+    #
+    #
+    #
     - stage: test
+      env: PACKAGE=cli
       install: skip
-      before_script: cd packages/cli
+      before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
         - npm run prebuild:test
     -
+      env: PACKAGE=core
       install: skip
-      before_script: cd packages/core
+      before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
         - npm run prebuild:test
     -
+      env: PACKAGE=example
       install: skip
-      before_script: cd packages/example
+      before_script: cd packages/$PACKAGE
     -
+      env: PACKAGE=types
       install: skip
-      before_script: cd packages/types
+      before_script: cd packages/$PACKAGE
     -
+      env: PACKAGE=reporter-web
       addons:
         chrome: beta
       install:
@@ -56,10 +65,13 @@ jobs:
         - sleep 3 # give xvfb some time to start
 
       before_script:
-        - cd packages/reporter-web
+        - cd packages/$PACKAGE
 
-    -
-      stage: deploy
+    #
+    #
+    #
+
+    - stage: deploy
       addons:
         chrome: beta
       install:
