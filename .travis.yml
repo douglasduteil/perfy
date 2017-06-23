@@ -21,7 +21,7 @@ jobs:
     - stage: prepare cache
       script:
         - npm run bootstrap
-      after_success:
+      before_cache:
         - npm run build
 
     #
