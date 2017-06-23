@@ -36,7 +36,7 @@ jobs:
       before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
-        - npm run prebuild:test
+        - cd node_midules
     -
       env: PACKAGE=example
       install: skip
