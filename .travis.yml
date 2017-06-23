@@ -30,7 +30,11 @@ jobs:
       env: PACKAGE=cli
       before_script:
         - npm run bootstrap
+        - npm run build
+
         - ls packages/core
+        - ls packages/core/dist
+        - npm run lerna run build --scope @perfyjs/core
         - ls packages/core/dist
         - cd packages/$PACKAGE
         - ls node_modules/@perfyjs
@@ -45,6 +49,7 @@ jobs:
         - npm run build
       before_script:
         - npm run bootstrap
+        - npm run build
         - cd packages/$PACKAGE
       before_cache:
         # clean test output
@@ -53,6 +58,7 @@ jobs:
       env: PACKAGE=example
       before_script:
         - npm run bootstrap
+        - npm run build
         - cd packages/$PACKAGE
     -
       env: PACKAGE=reporter-web
@@ -67,6 +73,7 @@ jobs:
         - sleep 3 # give xvfb some time to start
       before_script:
         - npm run bootstrap
+        - npm run build
         - cd packages/$PACKAGE
     -
       env: PACKAGE=types
