@@ -7,20 +7,6 @@ git:
 
 node_js: stable
 
-env:
-  - CACHE_NAME="$TRAVIS_BRANCH-cache-$TRAVIS_OS_NAME-node-$(node -v)"
-cache:
-  directories:
-  - node_modules
-  - packages/cli/dist
-  - packages/cli/node_modules
-  - packages/core/dist
-  - packages/core/node_modules
-  - packages/reporter-web/dist
-  - packages/reporter-web/node_modules
-  - packages/types/dist
-  - packages/types/node_modules
-
 jobs:
   include:
     - stage: prepare cache
@@ -35,7 +21,6 @@ jobs:
 
     - stage: test
       env: PACKAGE=cli
-      install: skip
       before_script:
         - npm run bootstrap
         - ls packages/core
@@ -48,7 +33,6 @@ jobs:
         - npm run prebuild:test
     -
       env: PACKAGE=core
-      install: skip
       script:
         - npm run bootstrap
         - npm run build
@@ -60,7 +44,6 @@ jobs:
         - npm run prebuild:test
     -
       env: PACKAGE=example
-      install: skip
       before_script:
         - npm run bootstrap
         - cd packages/$PACKAGE
