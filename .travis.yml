@@ -25,7 +25,9 @@ cache:
 jobs:
   include:
     - stage: prepare cache
-      script: npm run install:packages
+      script:
+        - npm run install:packages
+        - npm run build
 
     #
     #
