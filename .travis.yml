@@ -25,9 +25,6 @@ cache:
 jobs:
   include:
     - stage: prepare cache
-      # lerna is not working properly with npm@5
-      # We use npm@4 though node@<7.10
-      before_script: nvm i 7
       script: npm run install:packages
     - stage: test
       install: skip
@@ -59,9 +56,6 @@ jobs:
         - sleep 3 # give xvfb some time to start
 
       before_script:
-        # As we compiled with node@7.10 we have to
-        # use it to keep node-sass happy.
-        - nvm i 7
         - cd packages/reporter-web
 
     -

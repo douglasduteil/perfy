@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "lerna": "lerna --",
+    "build": "lerna run build",
     "install:packages": "lerna bootstrap",
     "test": "lerna run test"
   },

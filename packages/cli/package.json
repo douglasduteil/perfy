@@ -14,7 +14,6 @@
     "lint": "run-p lint:*",
     "prebuild:test": "del test/out-tsc",
     "prebuild": "del dist",
-    "prepublish": "npm run build",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
     "test:unit": "ava --verbose --no-cache",
