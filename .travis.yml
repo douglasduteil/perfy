@@ -15,10 +15,6 @@ cache:
   - packages/cli/node_modules
   - packages/core/dist
   - packages/core/node_modules
-  - packages/example/dist
-  - packages/example/node_modules
-  - packages/reporter-web/dist
-  - packages/reporter-web/node_modules
   - packages/types/dist
   - packages/types/node_modules
 
@@ -43,6 +39,9 @@ jobs:
     -
       env: PACKAGE=core
       install: skip
+      script:
+        - npm run install:packages
+        - npm run build
       before_script: cd packages/$PACKAGE
       before_cache:
         # clean test output
