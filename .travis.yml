@@ -9,6 +9,7 @@ node_js: stable
 
 cache:
   directories:
+  - $(npm config get cache)
   - node_modules
   - packages/cli/dist
   - packages/core/dist
@@ -22,6 +23,8 @@ cache:
 jobs:
   include:
     - stage: prepare cache
+      before_install:
+        - npm i -g npm
       script:
         - npm run bootstrap
       before_cache:
