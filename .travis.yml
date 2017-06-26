@@ -23,6 +23,7 @@ cache:
 jobs:
   include:
     - stage: prepare cache
+      env: CACHE_NAME=JOB1
       before_install:
         - npm i -g npm
       script:
@@ -35,22 +36,13 @@ jobs:
     #
 
     - stage: test
-      env: PACKAGE=cli
+      env: CACHE_NAME=JOB1 PACKAGE=cli
       install: skip
       before_script:
         - npm run build
       script: skip
     -
-      env: PACKAGE=core
-      install: skip
-      before_script:
-        - npm run build
-        - cd packages/$PACKAGE
-      script: skip
-      before_cache:
-        - cd ..
-    -
-      env: PACKAGE=example
+      env: CACHE_NAME=JOB1 PACKAGE=core
       install: skip
       before_script:
         - npm run build
@@ -59,7 +51,16 @@ jobs:
       before_cache:
         - cd ..
     -
-      env: PACKAGE=reporter-web
+      env: CACHE_NAME=JOB1 PACKAGE=example
+      install: skip
+      before_script:
+        - npm run build
+        - cd packages/$PACKAGE
+      script: skip
+      before_cache:
+        - cd ..
+    -
+      env: CACHE_NAME=JOB1 PACKAGE=reporter-web
       install: skip
       addons:
         chrome: beta
@@ -78,7 +79,7 @@ jobs:
       before_cache:
         - cd ..
     -
-      env: PACKAGE=types
+      env: CACHE_NAME=JOB1 PACKAGE=types
       install: skip
       before_script: cd packages/$PACKAGE
       script: skip
