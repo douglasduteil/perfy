@@ -29,4 +29,4 @@ jobs:
     - stage: test
       env: PACKAGE=cli
       install: skip
-      script: docker run --rm $DOCKER_IMAGE -w packages/$PACKAGE npm test
+      script: docker run --rm $DOCKER_IMAGE "cd packages/$PACKAGE; npm test"
