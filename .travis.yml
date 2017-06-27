@@ -21,7 +21,11 @@ jobs:
         - docker images
         - docker tag travis-ci-perfy:$TRAVIS_BRANCH $DOCKER_IMAGE
         - docker push $DOCKER_IMAGE
-    - stage: testing docker
-      script:
-        - docker run --rm $DOCKER_IMAGE npm run build
-        - docker run --rm $DOCKER_IMAGE npm test
+
+    #
+    #
+    #
+    - stage: test
+      env: PACKAGE=cli
+      install: skip
+      script: docker run --rm $DOCKER_IMAGE -w packages/$PACKAGE npm test
