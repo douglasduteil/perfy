@@ -17,6 +17,7 @@ jobs:
       install: skip
       script:
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - docker pull $DOCKER_IMAGE
         - docker build -t travis-ci-perfy:$TRAVIS_BRANCH .
         - docker images
         - docker tag travis-ci-perfy:$TRAVIS_BRANCH $DOCKER_IMAGE
