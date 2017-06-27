@@ -19,10 +19,11 @@ ENV NODE_VERSION v8
 # https://github.com/creationix/nvm#install-script
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
-RUN source $NVM_DIR/nvm.sh
-RUN nvm install $NODE_VERSION
-RUN nvm alias default $NODE_VERSION
-RUN nvm use default
+# install node and npm
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
 RUN mkdir -p /home/travis/build/
 WORKDIR /home/travis/build/
