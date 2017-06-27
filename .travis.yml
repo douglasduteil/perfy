@@ -7,6 +7,9 @@ git:
 
 node_js: stable
 
+services:
+  - docker
+
 cache:
   directories:
   - $(npm config get cache)
@@ -20,8 +23,23 @@ cache:
   - packages/reporter-web/node_modules
   - packages/types/node_modules
 
+env:
+  - DOCKER_IMAGE="$DOCKER_USERNAME/travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID"
 jobs:
   include:
+
+    - stage: build docker image
+      script:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker build -t travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID .
+      - docker images
+      - docker tag travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID $DOCKER_IMAGE
+      - docker push $DOCKER_IMAGE
+    - stage: testing docker
+      script:
+        - docker run --rm $DOCKER_IMAGE ls node_modules
+        - docker run --rm $DOCKER_IMAGE npm run build
+        - docker run --rm $DOCKER_IMAGE npm test
     - stage: prepare cache
       env: CACHE_NAME=JOB1
       before_install:
