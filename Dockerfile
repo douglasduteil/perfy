@@ -1,4 +1,4 @@
-FROM buildpack-deps:jessie
+FROM debian:latest
 
 
 # replace shell with bash so we can source files
