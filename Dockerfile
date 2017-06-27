@@ -5,3 +5,5 @@ WORKDIR /home/travis/build/
 COPY . .
 
 RUN npm install -g npm
+RUN npm install
+RUN npm run bootstrap
