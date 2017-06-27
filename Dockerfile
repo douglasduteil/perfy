@@ -4,13 +4,20 @@ FROM debian:latest
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+# update the repository sources list
+# and install dependencies
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get -y autoclean
+
 USER root
 ENV HOME /root
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION v8
 
-# setup the nvm environment
-RUN git clone https://github.com/creationix/nvm.git $HOME/.nvm
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
 RUN source $NVM_DIR/nvm.sh
 RUN nvm install $NODE_VERSION
