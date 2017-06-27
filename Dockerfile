@@ -1,7 +1,7 @@
 FROM buildpack-deps:jessie
 
 USER root
-ENV HOME /home/travis
+ENV HOME /root
 ENV NODE_VER v8
 
 # setup the nvm environment
@@ -17,6 +17,9 @@ RUN mkdir -p /home/travis/build/
 WORKDIR /home/travis/build/
 COPY . .
 
+RUN source $HOME/.profile
+RUN node -v
+RUN npm -v
 RUN npm install -g npm
 RUN npm install
 RUN npm run bootstrap
