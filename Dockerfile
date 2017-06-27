@@ -1,28 +1,27 @@
 FROM buildpack-deps:jessie
 
+
+# replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 USER root
 ENV HOME /root
-ENV NODE_VER v8
+ENV NODE_VERSION v8
 
 # setup the nvm environment
 RUN git clone https://github.com/creationix/nvm.git $HOME/.nvm
-RUN echo '\n#The Following loads nvm, and install Node.js which version is assigned to $NODE_ENV' >> $HOME/.profile
-RUN echo '. ~/.nvm/nvm.sh' >> $HOME/.profile
-RUN echo 'echo "Installing node@${NODE_VER}, this may take several minutes..."' >> $HOME/.profile
-RUN echo 'nvm install ${NODE_VER}' >> $HOME/.profile
-RUN echo 'nvm alias default ${NODE_VER}' >> $HOME/.profile
-RUN echo 'echo "Install node@${NODE_VER} finished."' >> $HOME/.profile
+
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
 
 RUN mkdir -p /home/travis/build/
 WORKDIR /home/travis/build/
 COPY . .
 
-RUN source $HOME/.profile
 RUN node -v
 RUN npm -v
 RUN npm install -g npm
 RUN npm install
 RUN npm run bootstrap
-
-ENTRYPOINT ["/bin/bash", "--login", "-i", "-c"]
-CMD ["bash"]
