@@ -2,7 +2,7 @@
 dist: trusty
 sudo: false
 git:
-  depth: 0
+  depth: 1
 
 env:
   - DOCKER_IMAGE="$DOCKER_USERNAME/travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID"
