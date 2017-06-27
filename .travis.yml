@@ -23,5 +23,5 @@ jobs:
         - docker push $DOCKER_IMAGE
     - stage: testing docker
       script:
-        - docker run --rm $DOCKER_IMAGE "npm run build"
-        - docker run --rm $DOCKER_IMAGE "npm test"
+        - docker run --rm $DOCKER_IMAGE npm run build
+        - docker run --rm $DOCKER_IMAGE npm test
