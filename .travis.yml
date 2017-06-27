@@ -1,135 +1,24 @@
 ---
 dist: trusty
-language: node_js
 sudo: false
 git:
-  depth: 5
-
-node_js: stable
-
-services:
-  - docker
-
-cache:
-  directories:
-  - $(npm config get cache)
-  - node_modules
-  - packages/cli/dist
-  - packages/core/dist
-  - packages/reporter-web/dist
-  - packages/types/dist
-  - packages/cli/node_modules
-  - packages/core/node_modules
-  - packages/reporter-web/node_modules
-  - packages/types/node_modules
+  depth: 0
 
 env:
   - DOCKER_IMAGE="$DOCKER_USERNAME/travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID"
+
 jobs:
   include:
 
     - stage: build docker image
+      install: skip
       script:
-      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker build -t travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID .
-      - docker images
-      - docker tag travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID $DOCKER_IMAGE
-      - docker push $DOCKER_IMAGE
+        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - docker build -t travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID .
+        - docker images
+        - docker tag travis-ci-perfy:$TRAVIS_BRANCH-$TRAVIS_BUILD_ID $DOCKER_IMAGE
+        - docker push $DOCKER_IMAGE
     - stage: testing docker
       script:
-        - docker run --rm $DOCKER_IMAGE ls node_modules
         - docker run --rm $DOCKER_IMAGE npm run build
         - docker run --rm $DOCKER_IMAGE npm test
-    - stage: prepare cache
-      env: CACHE_NAME=JOB1
-      before_install:
-        - npm i -g npm
-      script:
-        - npm run bootstrap
-      before_cache:
-        - npm run build
-
-    #
-    #
-    #
-
-    - stage: test
-      env: CACHE_NAME=JOB1 PACKAGE=cli
-      install: skip
-      before_script:
-        - npm run build
-      script: skip
-    -
-      env: CACHE_NAME=JOB1 PACKAGE=core
-      install: skip
-      before_script:
-        - npm run build
-        - cd packages/$PACKAGE
-      script: skip
-      before_cache:
-        - cd ..
-    -
-      env: CACHE_NAME=JOB1 PACKAGE=example
-      install: skip
-      before_script:
-        - npm run build
-        - cd packages/$PACKAGE
-      script: skip
-      before_cache:
-        - cd ..
-    -
-      env: CACHE_NAME=JOB1 PACKAGE=reporter-web
-      install: skip
-      addons:
-        chrome: beta
-      before_install:
-        - export CHROME_BIN="google-chrome-beta"
-        - export KARMA_SINGLE_RUN=true
-
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3 # give xvfb some time to start
-      before_script:
-        - npm run bootstrap
-        - npm run build
-        - cd packages/$PACKAGE
-      script: skip
-      before_cache:
-        - cd ..
-    -
-      env: CACHE_NAME=JOB1 PACKAGE=types
-      install: skip
-      before_script: cd packages/$PACKAGE
-      script: skip
-      before_cache:
-        - cd ..
-
-    #
-    #
-    #
-
-    - stage: deploy
-      addons:
-        chrome: beta
-      install:
-        - exit 1
-        - export CHROME_BIN=$(which google-chrome-beta)
-
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - sleep 3 # give xvfb some time to start
-      before_script: cd packages/example
-      script: npm run perf:test
-      after_success:
-        - npm run perfy -- update
-        - npm run perfy -- report
-      before_deploy:
-        - mkdir -p ghpages/example
-        - mv perfy_report ghpages/example
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        local_dir: ghpages
-        github-token: $GITHUB_TOKEN
-        on:
-          branch: master
