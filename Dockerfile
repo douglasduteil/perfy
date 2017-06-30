@@ -5,10 +5,14 @@ RUN mkdir -p /home/travis/build/
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:
 ADD package.json package-lock.json lerna.json /tmp/
-RUN find . -regex '^./packages/\w+/package\(-lock\)?.json' -type f -exec cp -a --parents '{}' /tmp/ \;
 
 RUN mkdir -p /tmp/packages/@types
 COPY packages/@types /tmp/packages/@types/
+
+RUN mkdir -p /tmp/packages/cli
+ADD packages/cli/package.json packages/cli/package-lock.json /tmp/packages/cli/
+
+#RUN find . -regex '^./packages/\w+/package\(-lock\)?.json' -type f -exec cp -a --parents '{}' /tmp/ \;
 
 RUN cd /tmp && ls
 RUN cd /tmp && ls packages
