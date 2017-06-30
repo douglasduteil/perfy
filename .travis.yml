@@ -23,10 +23,8 @@ jobs:
 
     - stage: test
       env: PACKAGE=core
-
       before_script:
         - npm run bootstrap
-        - npm run build
         - cd packages/$PACKAGE
       script:
         - npm run lint
