@@ -7,6 +7,9 @@ git:
 
 node_js: stable
 
+before_cache:
+  - rm -rf $(npm config get cache)/_logs
+
 cache:
   directories:
     - $(npm config get cache)
@@ -20,6 +23,7 @@ jobs:
 
     - stage: test
       env: PACKAGE=cli
+
       before_script:
         - npm run bootstrap
         - npm run build
@@ -27,3 +31,6 @@ jobs:
       script:
         - npm run lint
         - npm run test
+
+      before_cache:
+        - cd ..
