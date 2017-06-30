@@ -14,6 +14,7 @@ cache:
   directories:
     - $(npm config get cache)
     - node_modules
+    - packages/core/node_modules
 
 jobs:
   include:
