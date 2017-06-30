@@ -8,6 +8,7 @@ git:
 node_js: stable
 
 before_cache:
+  - ls
   - rm -vrf packages/*/node_modules/@perfyjs
   - rm -vrf $(npm config get cache)/_logs
 
