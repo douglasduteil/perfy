@@ -24,6 +24,8 @@ cache:
 jobs:
   include:
     - stage: test
+
+    -
       env: PACKAGE=core
       before_script:
         - npm run bootstrap
