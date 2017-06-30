@@ -9,7 +9,7 @@
     "perfy": "perfy --",
     "postinstall": "npm run webdriver-update",
     "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
-    "lint:test": "tslint \"test/unit/**/*.ts\" --type-check -p test/tsconfig.json",
+    "lint:perf": "tslint \"test/perf/**/*.ts\" --type-check -p test/perf/tsconfig.json",
     "lint": "run-p lint:*",
     "serve": "node server.js",
     "start": "npm run serve",
