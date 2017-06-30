@@ -24,7 +24,14 @@ cache:
 jobs:
   include:
     - stage: test
-
+      env: PACKAGE=cli
+      before_script:
+        - npm run bootstrap
+      script:
+        - cd packages/$PACKAGE
+        - npm run lint
+        - npm run test
+        - cd ../..
     -
       env: PACKAGE=core
       before_script:
