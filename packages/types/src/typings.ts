@@ -10,7 +10,7 @@ export interface IPerfySuite {
 
 export interface ITestCase {
   id: string;
-  cases: IBenchpressIteration[];
+  iterations: IBenchpressIteration[];
 }
 
 export interface IBenchpressIteration {
