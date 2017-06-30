@@ -14,12 +14,12 @@ before_cache:
 cache:
   directories:
     - $(npm config get cache)
-    - node_modules
-    - packages/core/node_modules
-    - packages/cli/node_modules
-    - packages/example/node_modules
-    - packages/reporter-web/node_modules
-    - packages/types/node_modules
+    - $TRAVIS_BUILD_DIR/node_modules
+    - $TRAVIS_BUILD_DIR/packages/core/node_modules
+    - $TRAVIS_BUILD_DIR/packages/cli/node_modules
+    - $TRAVIS_BUILD_DIR/packages/example/node_modules
+    - $TRAVIS_BUILD_DIR/packages/reporter-web/node_modules
+    - $TRAVIS_BUILD_DIR/packages/types/node_modules
 
 jobs:
   include:
