@@ -1,32 +1,29 @@
 ---
 dist: trusty
+language: node_js
 sudo: false
 git:
   depth: 1
 
-services:
-  - docker
+node_js: stable
 
-env:
-  - DOCKER_IMAGE="$DOCKER_USERNAME/travis-ci-perfy:$TRAVIS_BRANCH"
+cache:
+  directories:
+    - $(npm config get cache)
+    - node_modules
 
 jobs:
   include:
+    - stage: prepare cache
+      install: npm i -g npm
+      script: skip
 
-    - stage: build docker image
-      install: skip
-      script:
-        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        - docker pull $DOCKER_IMAGE
-        - docker build -t travis-ci-perfy:$TRAVIS_BRANCH .
-        - docker images
-        - docker tag travis-ci-perfy:$TRAVIS_BRANCH $DOCKER_IMAGE
-        - docker push $DOCKER_IMAGE
-
-    #
-    #
-    #
+  include:
     - stage: test
       env: PACKAGE=cli
-      install: skip
-      script: docker run --rm $DOCKER_IMAGE "cd packages/$PACKAGE; npm test"
+      before_script:
+        - npm run bootstrap
+        - cd packages/$PACKAGE
+      script:
+        - npm run lint
+        - npm run test
