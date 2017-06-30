@@ -9,6 +9,7 @@ node_js: stable
 
 before_cache:
   - cd ..
+  - rm -rf packages/*/node_modules/@perfyjs
   - rm -rf $(npm config get cache)/_logs
 
 cache:
