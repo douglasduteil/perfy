@@ -8,7 +8,6 @@ git:
 node_js: stable
 
 before_cache:
-  - ls
   - rm -vrf packages/*/node_modules/@perfyjs
   - rm -vrf $(npm config get cache)/_logs
 
@@ -16,6 +15,11 @@ cache:
   directories:
     - $(npm config get cache)
     - node_modules
+    - packages/core/node_modules
+    - packages/cli/node_modules
+    - packages/example/node_modules
+    - packages/reporter-web/node_modules
+    - packages/types/node_modules
 
 jobs:
   include:
@@ -27,7 +31,7 @@ jobs:
         - cd packages/$PACKAGE
         - npm run lint
         - npm run test
-        - cd ..
+        - cd ../..
     -
       env: PACKAGE=example
       before_script:
@@ -36,7 +40,7 @@ jobs:
         - cd packages/$PACKAGE
         - npm run lint
         - npm run test
-        - cd ..
+        - cd ../..
     -
       env: PACKAGE=reporter-web
       addons:
@@ -54,7 +58,7 @@ jobs:
         - cd packages/$PACKAGE
         - npm run lint
         - npm run test
-        - cd ..
+        - cd ../..
     -
       env: PACKAGE=types
       before_script:
@@ -63,4 +67,4 @@ jobs:
         - cd packages/$PACKAGE
         - npm run lint
         - npm run test
-        - cd ..
+        - cd ../..
