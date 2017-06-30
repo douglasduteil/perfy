@@ -22,6 +22,7 @@ jobs:
       env: PACKAGE=cli
       before_script:
         - npm run bootstrap
+        - npm run build
         - cd packages/$PACKAGE
       script:
         - npm run lint
