@@ -22,7 +22,7 @@ jobs:
       script: skip
 
     - stage: test
-      env: PACKAGE=cli
+      env: PACKAGE=core
 
       before_script:
         - npm run bootstrap
