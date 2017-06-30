@@ -22,6 +22,7 @@ cache:
     - packages/types/node_modules
 
 jobs:
+  include:
     - stage: test
       env: PACKAGE=core
       cache:
