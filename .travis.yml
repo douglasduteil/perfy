@@ -18,7 +18,6 @@ jobs:
       install: npm i -g npm
       script: skip
 
-  include:
     - stage: test
       env: PACKAGE=cli
       before_script:
