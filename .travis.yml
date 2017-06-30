@@ -8,6 +8,7 @@ git:
 node_js: stable
 
 before_cache:
+  - cd ..
   - rm -rf $(npm config get cache)/_logs
 
 cache:
@@ -15,21 +16,29 @@ cache:
     - $(npm config get cache)
     - node_modules
     - packages/core/node_modules
+    - packages/cli/node_modules
+    - packages/example/node_modules
+    - packages/reporter-web/node_modules
+    - packages/types/node_modules
 
 jobs:
-  include:
-    - stage: prepare cache
-      install: npm i -g npm
-      script: skip
-
     - stage: test
       env: PACKAGE=core
+      cache:
+        directories:
       before_script:
         - npm run bootstrap
         - cd packages/$PACKAGE
       script:
         - npm run lint
         - npm run test
-
-      before_cache:
-        - cd ..
+    -
+      env: PACKAGE=types
+      cache:
+        directories:
+      before_script:
+        - npm run bootstrap
+        - cd packages/$PACKAGE
+      script:
+        - npm run lint
+        - npm run test
