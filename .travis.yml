@@ -37,6 +37,15 @@ jobs:
         - npm run test
         - cd ..
     -
+      env: PACKAGE=reporter-web
+      before_script:
+        - npm run bootstrap
+      script:
+        - cd packages/$PACKAGE
+        - npm run lint
+        - npm run test
+        - cd ..
+    -
       env: PACKAGE=types
       before_script:
         - npm run bootstrap
