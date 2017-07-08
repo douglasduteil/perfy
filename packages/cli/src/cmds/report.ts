@@ -1,8 +1,8 @@
 //
 
-import { resolve } from 'path';
-import { Container, injectable, inject } from 'inversify';
 import * as Debug from 'debug';
+import { Container, inject, injectable } from 'inversify';
+import { resolve } from 'path';
 import * as yargs from 'yargs';
 
 import { Database, ReporterCopy, ReporterResolver } from '@perfyjs/core';
@@ -104,7 +104,7 @@ export function handlerFactory(container: Container = new Container()) {
 
   container.bind(ReportHandler).toSelf();
 
-  return function handler (argv: yargs.Argv) {
+  return function handlerFn(argv: yargs.Argv) {
     debug('handler', argv);
 
     const reportHandler = container.get(ReportHandler);

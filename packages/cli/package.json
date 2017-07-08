@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc --pretty --module commonjs --outDir dist",
     "e2e": "echo \"e2e test\"",
-    "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
+    "lint:src": "tslint --type-check -p tsconfig.json -t stylish \"src/**/*.ts\"",
     "lint:test": "tslint \"test/**/*.ts\" --type-check -p test/tsconfig.json",
     "lint": "run-p lint:*",
     "prebuild": "del dist",

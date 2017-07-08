@@ -1,11 +1,11 @@
 //
 
 import * as history from 'connect-history-api-fallback';
+import * as Debug from 'debug';
 import * as express from 'express';
 import {Server} from 'http';
 import {omit} from 'lodash';
 import {findAPortNotInUse} from 'portscanner';
-import * as Debug from 'debug';
 
 //
 

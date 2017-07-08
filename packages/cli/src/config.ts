@@ -19,7 +19,7 @@ export interface ICliConfig {
 export function resolveConfig(argv: {config: string, reportsFolder?: string}) {
   debug('resolveConfig');
 
-  const configFile: string = argv.config || process.env.npm_package_config_perfy_config;
+  const configFile: string = argv.config || process.env.npm_package_config_perfy_config || '';
   const configDescendants: any[] = [argv];
   const config: any = {};
 

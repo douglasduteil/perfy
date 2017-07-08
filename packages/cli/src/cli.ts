@@ -10,7 +10,6 @@ import * as Debug from 'debug';
 
 import { yargsParser } from './parser';
 
-
 //
 
 const debug = Debug('@perfyjs/cli:cli');
