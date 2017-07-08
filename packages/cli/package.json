@@ -8,9 +8,9 @@
   },
   "scripts": {
     "build": "tsc --pretty --module commonjs --outDir dist",
-    "e2e": "echo \"e2e test\"",
+    "e2e": "jest --testRegex test/e2e/.*\\.spec\\.ts$",
     "lint:src": "tslint --type-check -p tsconfig.json -t stylish \"src/**/*.ts\"",
-    "lint:test": "tslint \"test/**/*.ts\" --type-check -p test/tsconfig.json",
+    "lint:test": "tslint --type-check -p test/tsconfig.json -t stylish \"test/**/*.ts\"",
     "lint": "run-p lint:*",
     "prebuild": "del dist",
     "serve": "npm run build -- -w",
@@ -57,6 +57,7 @@
     "@types/debug": "^0.0.29",
     "@types/execa": "^0.6.0",
     "@types/express": "^4.0.36",
+    "@types/fixture-cases-extract": "file:../@types/fixture-cases-extract",
     "@types/jest": "^20.0.2",
     "@types/lodash": "^4.14.68",
     "@types/node": "^8.0.9",
@@ -71,6 +72,7 @@
     "jsdom-global": "^3.0.2",
     "npm-run-all": "^4.0.2",
     "sinon": "^2.3.6",
+    "tempy": "^0.1.0",
     "ts-jest": "^20.0.7",
     "tslint": "^5.5.0",
     "typescript": "^2.4.1"

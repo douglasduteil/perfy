@@ -31,14 +31,14 @@ test('should report', async () => {
 
   const reporterResolverMock = {
     resolve: jest.fn().mockReturnValue('path/to/web_report')
-  }
+  };
   testContainer.unbind(ReporterResolver);
   testContainer.bind(ReporterResolver).toConstantValue(reporterResolverMock as any);
 
   // when
   await handler(yargs);
 
-  //then
+  // then
   expect(databaseMock.instanciate).toHaveBeenCalled();
   expect(reporterResolverMock.resolve).toHaveBeenCalled();
   expect(reporterCopyMock.copy).toHaveBeenCalledWith('path/to/web_report', 'perfy_report');

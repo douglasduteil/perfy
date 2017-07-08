@@ -18,14 +18,13 @@ fixtureCasesExtract({
 
   }
 })
-.forEach(testCase => {
+.forEach((testCase) => {
   test(testCase.name, () => {
     // given
 
     // when
-    parser([])
+    parser([]);
 
     // then
-  })
+  });
 });
-
