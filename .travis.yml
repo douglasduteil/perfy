@@ -31,6 +31,7 @@ jobs:
         - cd packages/$PACKAGE
         - npm run lint
         - npm run test
+        - npm run e2e
         - cd ../..
     -
       env: PACKAGE=core
