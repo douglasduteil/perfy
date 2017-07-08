@@ -4,12 +4,12 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "bin": {
-    "perfy": "bin/perfy.js"
+    "perfy": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc --module commonjs --outDir dist",
+    "build": "tsc --pretty --module commonjs --outDir dist",
     "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
-    "lint:test": "tslint \"test/unit/**/*.ts\" --type-check -p test/tsconfig.json",
+    "lint:test": "tslint \"test/**/*.ts\" --type-check -p test/tsconfig.json",
     "lint": "run-p lint:*",
     "prebuild": "del dist",
     "serve": "npm run build -- -w",
@@ -19,48 +19,55 @@
     "@perfyjs/core": "^0.0.0",
     "@perfyjs/reporter-web": "^0.0.0",
     "connect-history-api-fallback": "^1.3.0",
+    "debug": "^2.6.8",
     "express": "^4.15.3",
     "http-server": "^0.10.0",
+    "inversify": "^4.2.0",
     "live-server": "^1.2.0",
     "lodash": "^4.17.4",
-    "npmlog": "^4.1.0",
     "portscanner": "^2.1.1",
     "reflect-metadata": "^0.1.10",
     "serve-static": "^1.12.3",
     "yargs": "^8.0.2"
   },
   "jest": {
-    "transform": {
-      ".ts": "ts-jest/preprocessor.js"
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "test/tsconfig.json"
+      }
     },
-    "testRegex": "test/unit/.*\\.spec\\.ts$",
     "moduleFileExtensions": [
       "ts",
-      "tsx",
       "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
     ],
     "setupFiles": [
       "reflect-metadata"
     ],
-    "modulePaths": [
-      "<rootDir>"
-    ]
+    "testRegex": "test/.*\\.spec\\.ts$",
+    "transform": {
+      ".ts": "ts-jest/preprocessor.js"
+    }
   },
   "devDependencies": {
+    "@types/debug": "0.0.29",
     "@types/execa": "^0.6.0",
     "@types/express": "^4.0.36",
     "@types/jest": "^20.0.1",
     "@types/lodash": "^4.14.66",
     "@types/node": "7.0.28",
-    "@types/npmlog": "file:../@types/npmlog",
     "@types/portscanner": "file:../@types/portscanner",
     "@types/sinon": "^2.3.1",
     "@types/yargs": "^6.6.0",
     "del-cli": "^1.0.0",
     "execa": "^0.7.0",
+    "fixture-cases-extract": "^1.0.0",
     "jest": "^20.0.4",
-    "jsdom-global": "^3.0.2",
     "jsdom": "^11.0.0",
+    "jsdom-global": "^3.0.2",
     "npm-run-all": "^4.0.2",
     "sinon": "^2.3.4",
     "ts-jest": "^20.0.6",

@@ -5,8 +5,13 @@ import * as express from 'express';
 import {Server} from 'http';
 import {omit} from 'lodash';
 import {findAPortNotInUse} from 'portscanner';
+import * as Debug from 'debug';
 
-import { log } from './logger';
+//
+
+const debug = Debug('@perfyjs/cli:server');
+
+//
 
 export async function start(options: any): Promise<Server> {
 
@@ -15,14 +20,14 @@ export async function start(options: any): Promise<Server> {
     database
   } = options;
 
-  log.info('start %j', root);
+  debug('start %j', root);
 
   const app = express();
 
   const suitesRouter = express.Router();
   suitesRouter.get('/:id.json', (req, res) => {
     const { id } = req.params;
-    log.verbose('get suite %s', id);
+    debug('get suite %s', id);
     const data = database.get('suites').get(id).value();
 
     if (!data) {
@@ -36,7 +41,7 @@ export async function start(options: any): Promise<Server> {
   const apiRouter = express.Router();
   apiRouter.use('/suites', suitesRouter);
   apiRouter.get('/suites.json', (_, res) => {
-    log.verbose('get all suites');
+    debug('get all suites');
     res.json(database.get('suites').mapValues((suite: any) => omit(suite, ['cases'])).value());
   });
 
@@ -46,7 +51,7 @@ export async function start(options: any): Promise<Server> {
   app.use(express.static(root));
 
   const port = await findAPortNotInUse(8080, 8080 + 1000);
-  log.info('port %s', port);
+  debug('port %s', port);
 
   return app.listen(port);
 }

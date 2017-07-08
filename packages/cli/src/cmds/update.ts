@@ -1,10 +1,12 @@
 //
-
+/*
 import { resolve } from 'path';
 
 import { database, update } from '@perfyjs/core';
 
 import { log } from '../logger';
+
+import { rootContainer } from '../ioc_config';
 
 //
 
@@ -33,7 +35,7 @@ export function handlerFactory(_context: Partial<IHandlerFactoryContext>) {
   const { database, log, update } = context;
 
   return async function handler(argv: any) {
-    log.silly(command, argv);
+    log.trace(command, argv);
 
     const perfyDatabase = database(resolve(process.cwd(), 'perfy_db.json'));
 
@@ -52,3 +54,4 @@ export function handlerFactory(_context: Partial<IHandlerFactoryContext>) {
 }
 
 export const handler = handlerFactory(defaultHandlerFactoryOptions);
+*/

@@ -5,17 +5,12 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build:test": "tsc -p test/tsconfig.json",
-    "build": "tsc --module commonjs --outDir dist",
-    "lint:src": "tslint \"src/**/*.ts\" --type-check -p tsconfig.json",
-    "lint:test": "tslint \"test/unit/**/*.ts\" --type-check -p test/tsconfig.json",
-    "lint": "run-p lint:*",
-    "prebuild:test": "del test/out-tsc",
+    "build": "tsc --pretty --module commonjs --outDir dist",
+    "lint": "tslint \"+(src|test)/**/*.ts\" --type-check -p tsconfig.json",
     "prebuild": "del dist",
     "serve:test": "run-p watch:test:unit watch:build:test",
     "serve": "npm run build -- -w",
     "test": "jest",
-    "watch:build:test": "npm run build:test -- -w --pretty",
     "watch:test:unit": "npm run test:unit -- -w --pretty"
   },
   "jest": {
@@ -68,7 +63,6 @@
     "jsdom-global": "^3.0.2",
     "memory-fs": "^0.4.1",
     "npm-run-all": "^4.0.2",
-    "npmlog": "^4.1.0",
     "sinon": "^2.3.4",
     "ts-jest": "^20.0.6",
     "tslint": "^5.4.3",

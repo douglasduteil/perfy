@@ -4,14 +4,20 @@ import * as path from 'path';
 
 import { defaults } from 'lodash';
 
-import { log } from './logger';
+import * as Debug from 'debug';
+
+//
+
+const debug = Debug('@perfyjs/cli:config');
+
+//
 
 export interface ICliConfig {
   pattern: string;
   reportsFolder: string;
 }
 export function resolveConfig(argv: {config: string, reportsFolder?: string}) {
-  log.silly('config', 'resolveConfig');
+  debug('resolveConfig');
 
   const configFile: string = argv.config || process.env.npm_package_config_perfy_config;
   const configDescendants: any[] = [argv];

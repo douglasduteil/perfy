@@ -1,28 +1,14 @@
 //
 
+import * as Debug from 'debug';
 import * as fse from 'fs-extra';
-
-import { inject, injectable } from 'inversify';
-
-import { Logger } from './logger';
-import { silentLog } from './silent-log';
+import { inject, injectable, optional } from 'inversify';
 
 //
 
-export const context = {
-  log: silentLog,
-  copyFn: fse.copy
-};
+const debug = Debug('DatabaseDump');
 
-export const factory = ({log, copyFn} = context) => (from: string, to: string) => {
-  log.silly('@perfy/core', 'copy', from, to);
-
-  return Promise.all([
-    copyFn(from, to)
-  ]);
-};
-
-export const copy = factory();
+//
 
 @injectable()
 export class ReporterCopy {
@@ -31,25 +17,19 @@ export class ReporterCopy {
 
   //
 
-  @inject(ReporterCopy.COPY_FS)
-  private fse: typeof fse;
-
-  //
-
-  private log: Logger;
   constructor(
-    // required on instanciation
-    logger: Logger
+    @inject(ReporterCopy.COPY_FS)
+    @optional()
+    private fs = fse
   ) {
-    this.log = logger.newItem('ReporterCopy');
-    this.log.silly('new');
+    debug('new');
   }
 
   copy(from: string, to: string) {
-    this.log.silly('copy', from, to);
+    debug('copy', from, to);
 
     return Promise.all([
-      this.fse.copy(from, to)
+      this.fs.copy(from, to)
     ]);
   }
 }

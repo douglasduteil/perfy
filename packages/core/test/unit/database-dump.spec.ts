@@ -41,7 +41,7 @@ test('should dump an empty suites-index.json file', async () => {
   expect(() => mockFsExtra.verify()).not.toThrow();
 });
 
-test.only('should dump the foo and bar suite', async () => {
+test('should dump the foo and bar suite', async () => {
   // given
   const ff = jest.fn().mockReturnValue(Promise.resolve());
   const container = new Container();

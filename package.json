@@ -1,13 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "lerna": "lerna --",
-    "postbootstrap": "npm run build",
-    "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "lerna": "lerna --",
+    "lint": "lerna run lint",
+    "postbootstrap": "npm run build",
     "test": "lerna run test"
   },
   "devDependencies": {
-    "lerna": "^2.0.0-rc.5"
+    "lerna": "^2.0.0-rc.5",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.1"
   }
 }

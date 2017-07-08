@@ -1,32 +1,45 @@
 //
+
+import { Container } from 'inversify';
+import * as yargs from 'yargs';
+
+import { handlerFactory } from 'src/cmds/report';
+
+import { Database, ReporterCopy, ReporterResolver } from '@perfyjs/core';
+
 //
 
-import { test } from 'ava';
-import { sandbox } from 'sinon';
-
-import { handlerFactory, IHandlerFactoryContext } from '../../../src/cmds/report';
-
 //
 
-test.beforeEach((t) => {
-  t.context = {
-    copy: () => {},
-    database: () => {},
-    resolve: () => {},
-    log: {silly() {}, error() {}}
-  } as any as Partial<IHandlerFactoryContext>;
-});
+test('should report', async () => {
+  // given
 
-test('should report ', async (t) => {
-  const sandpit = sandbox.create();
-  const mocks = sandpit.mock(t.context);
+  const testContainer = new Container();
+  const handler = handlerFactory(testContainer);
 
-  mocks.expects('resolve').once().withArgs('web').returns('path/to/web_report');
-  mocks.expects('copy').once().withArgs('path/to/web_report', 'perfy_report').resolves();
+  const databaseMock = {
+    instanciate: jest.fn()
+  };
+  testContainer.unbind(Database);
+  testContainer.bind(Database).toConstantValue(databaseMock as any);
 
-  const handler = handlerFactory(t.context);
+  const reporterCopyMock = {
+    copy: jest.fn().mockReturnValue(Promise.resolve())
+  };
+  testContainer.unbind(ReporterCopy);
+  testContainer.bind(ReporterCopy).toConstantValue(reporterCopyMock as any);
 
-  await handler([]);
+  const reporterResolverMock = {
+    resolve: jest.fn().mockReturnValue('path/to/web_report')
+  }
+  testContainer.unbind(ReporterResolver);
+  testContainer.bind(ReporterResolver).toConstantValue(reporterResolverMock as any);
 
-  t.notThrows(sandpit.verify.bind(sandpit));
+  // when
+  await handler(yargs);
+
+  //then
+  expect(databaseMock.instanciate).toHaveBeenCalled();
+  expect(reporterResolverMock.resolve).toHaveBeenCalled();
+  expect(reporterCopyMock.copy).toHaveBeenCalledWith('path/to/web_report', 'perfy_report');
 });

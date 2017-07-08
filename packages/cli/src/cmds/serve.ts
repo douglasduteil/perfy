@@ -1,10 +1,12 @@
 //
-
+/*
 import { resolve } from 'path';
 
 import { database, ReporterResolver } from '@perfyjs/core';
 
 import { log } from '../logger';
+
+import { rootContainer } from '../ioc_config';
 
 //
 
@@ -13,7 +15,7 @@ export const command = 'serve';
 export const desc = 'Explore the result';
 
 export function handler(argv: any) {
-  log.silly(command, argv);
+  log.trace(command, argv);
 
   const resolveReporter = ReporterResolver.factory();
   const root = resolveReporter('web');
@@ -26,3 +28,4 @@ export function handler(argv: any) {
     root
   });
 }
+*/

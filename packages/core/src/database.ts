@@ -2,29 +2,16 @@
 
 import { inject, injectable } from 'inversify';
 import Lowdb = require('lowdb');
+import * as Debug from 'debug';
 import * as t from 'tcomb';
 
-import { Logger } from './logger';
 import { IDatabase } from './typings';
 
 //
 
-const defaultLowdbOptions: Lowdb.Options = {
-  storage: require('lowdb/lib/storages/file-async.js'),
-  writeOnChange: false
-};
+const debug = Debug('DatabaseDump');
 
 //
-
-export function database(
-  fileName: string,
-  lowdbOptions = defaultLowdbOptions
-)  {
-  // log(database, fileName);
-
-  return new Lowdb(fileName, lowdbOptions)
-    .defaults<IDatabase>({ suites: {} });
-}
 
 @injectable()
 export class Database {
@@ -42,18 +29,13 @@ export class Database {
   //
 
   private _instance: Lowdb;
-  private log: Logger;
 
-  constructor(
-    // required on instanciation
-    logger: Logger
-  ) {
-    this.log = logger.newItem('Database');
-    this.log.silly('new');
+  constructor() {
+    debug('new');
   }
 
   instanciate() {
-    this.log.silly('init');
+    debug('init');
     this._instance = new Lowdb(
       this.filename,
       this.lowdbOptions
@@ -61,7 +43,7 @@ export class Database {
     .defaults<IDatabase>({ suites: {} });
   }
   get instance() {
-    this.log.silly('instance');
+    debug('instance');
 
     t.assert(Boolean(this._instance), 'No database instance found');
 

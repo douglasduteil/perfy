@@ -3,12 +3,18 @@
 import { join } from 'path';
 
 import Lowdb = require('lowdb');
+import * as Debug from 'debug';
 import * as fse from 'fs-extra';
-import { inject, injectable, optional } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { omit } from 'lodash';
 
 import { IPerfySuite } from '@perfyjs/types';
-import { Logger } from './logger';
+
+//
+
+const debug = Debug('DatabaseDump');
+
+//
 
 @injectable()
 export class DatabaseDump {
@@ -21,19 +27,10 @@ export class DatabaseDump {
   @inject(DatabaseDump.COPY_FS)
   private fse: typeof fse;
 
-  //
-  private log: Logger;
-
   constructor(
-    // required on instanciation
-    logger: Logger,
-
-    @inject(DatabaseDump.SUITE_INDEX_FILE_NAME)
-    @optional()
     private suiteIndexFileName = 'suites.json'
   ) {
-    this.log = logger.newItem('DatabaseDump');
-    this.log.silly('new');
+    debug('new');
   }
 
   dump(database: Lowdb, destination: string) {
@@ -44,7 +41,7 @@ export class DatabaseDump {
       .value();
 
     const suiteFolder = join(destination, 'suites');
-    const writeAllSuites: Promise<void>[] = suites.map(
+    const writeAllSuites: Array<Promise<void>> = suites.map(
       (suite: IPerfySuite, suiteName: string) => this.fse.writeJson(
         join(suiteFolder, `${suiteName}.json`),
         suite

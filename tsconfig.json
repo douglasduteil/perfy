@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "lib": ["dom", "es2015", "es2016"],
     "module": "commonjs",
     "noUnusedLocals": true,
@@ -8,6 +10,9 @@
     "outDir": "out-tsc",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    "types": [
+
+    ]
   }
 }
